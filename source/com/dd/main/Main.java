@@ -1,12 +1,21 @@
 package com.dd.main;
 
-//Hier kann ihr Werbung stehen
+import java.util.Scanner;
+
 public class Main {
+    private static String playerName;
+    private Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // write your code here
-        //Lukas war hier
-        //lelelelelele
-        //Noch ein zeug
+        Main m = new Main();
+        m.initializeGame();
+
+    }
+
+    public void initializeGame() {
+        System.out.println("Welcome to DankestDungeons");
+        System.out.println("Please type in your Player name:");
+        playerName = in.nextLine();
+        System.out.println("Hello " + playerName + " there are many adventures awaiting you!");
     }
 }
