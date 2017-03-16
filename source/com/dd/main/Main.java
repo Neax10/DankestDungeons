@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class Main {
     private static String playerName;
     private Scanner in = new Scanner(System.in);
-
-    //Moritz kann stuff schreiben
+    
     public static void main(String[] args) {
         Main m = new Main();
         m.initializeGame();
