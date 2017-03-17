@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-class DBController {
+public class DBController {
 
     private static final DBController dbcontroller = new DBController();
     private static final String DB_PATH = "db/dankestdungeons.db";
