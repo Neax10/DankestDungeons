@@ -8,7 +8,7 @@ import java.sql.SQLException;
 class DBController {
 
     private static final DBController dbcontroller = new DBController();
-    private static final String DB_PATH = "dankestdungeons.db";
+    private static final String DB_PATH = "db/dankestdungeons.db";
     private static Connection connection;
 
     static {
