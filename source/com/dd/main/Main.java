@@ -12,10 +12,18 @@ public class Main {
 
     }
 
+    public void initDatabase(){
+        DBController dbc = DBController.getInstance();
+        dbc.initDBConnection();
+        //dbc.handleDB();
+    }
+
     public void initializeGame() {
+        initDatabase();
         System.out.println("Welcome to DankestDungeons");
         System.out.println("Please type in your Player name:");
         playerName = in.nextLine();
         System.out.println("Hello " + playerName + " there are many adventures awaiting you!");
+
     }
 }
