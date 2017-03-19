@@ -14,17 +14,18 @@ public class Main {
     public void initDatabase() {
         DBController dbc = DBController.getInstance();
         dbc.initDBConnection();
+        Monster myMonster = dbc.getMonsterfromID(1);
+        String test = myMonster.getName();
+        System.out.println("We have a monster with the Name = " + test);
         //dbc.handleDB();
     }
 
     public void initializeGame() {
         initDatabase();
-        Player player = new Player();
         System.out.println("Welcome to DankestDungeons");
         System.out.println("Please type in your Player name:");
-        player.setName(in.nextLine());
-        System.out.println("Hello " + player.getName() + " there are many adventures awaiting you!");
-
+        Player.getPlayer().setName(in.nextLine());
+        System.out.println("Hello " + Player.getPlayer().getName() + " there are many adventures awaiting you!");
     }
 }
 
