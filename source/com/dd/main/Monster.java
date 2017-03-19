@@ -12,10 +12,10 @@ public class Monster {
     private int xp;
 
     public Monster() {
-        //Set level for Monster
+        /*Set level for Monster
         Random rng = new Random();
         int rnglvl = rng.nextInt();
-
+        */
     }
 
     public String getName() {

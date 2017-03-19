@@ -1,10 +1,6 @@
 package com.dd.main;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
 public class DBController {
@@ -12,7 +8,6 @@ public class DBController {
     private static final DBController dbcontroller = new DBController();
     private static final String DB_PATH = "db/dankestdungeons.db";
     private static Connection connection;
-    Statement statement;
 
     static {
         try {
@@ -22,6 +17,8 @@ public class DBController {
             e.printStackTrace();
         }
     }
+
+    Statement statement;
 
     private DBController() {
     }
@@ -64,7 +61,7 @@ public class DBController {
         ResultSet rs = null;
         try {
             rs = statement.executeQuery("SELECT * FROM Monster WHERE ID = " + ID);
-            while(rs.next()) {
+            while (rs.next()) {
                 monster.setName(rs.getString("name"));
                 monster.setHp(rs.getInt("health"));
                 monster.setMaxhp(rs.getInt("maxhealth"));

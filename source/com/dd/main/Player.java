@@ -1,6 +1,7 @@
 package com.dd.main;
 
 public class Player {
+    private static Player instance;
     private String name;
     private int maxhp;
     private int hp;
@@ -11,28 +12,11 @@ public class Player {
     private double prexp;
     private int gold;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    private static Player instance;
-
     private Player() {
         InitPlayer();
     }
 
-    public static Player getPlayer() {
-        if(instance == null) {
-            instance = new Player();
-        }
-        return instance;
-    }
-
-    private void InitPlayer(){
+    private void InitPlayer() {
         hp = 100;
         maxhp = 100;
         baseAttack = 10;
@@ -51,5 +35,92 @@ public class Player {
         hp = hp + 10;
         prexp = nexxp;
         nexxp = prexp * 1.5;
+    }
+
+    public static Player getPlayer() {
+        if (instance == null) {
+            instance = new Player();
+        }
+        return instance;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static Player getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(Player instance) {
+        Player.instance = instance;
+    }
+
+    public int getMaxhp() {
+        return maxhp;
+    }
+
+    public void setMaxhp(int maxhp) {
+        this.maxhp = maxhp;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getBaseAttack() {
+        return baseAttack;
+    }
+
+    public void setBaseAttack(int baseAttack) {
+        this.baseAttack = baseAttack;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public double getXp() {
+        return xp;
+    }
+
+    public void setXp(double xp) {
+        this.xp = xp;
+    }
+
+    public double getNexxp() {
+        return nexxp;
+    }
+
+    public void setNexxp(double nexxp) {
+        this.nexxp = nexxp;
+    }
+
+    public double getPrexp() {
+        return prexp;
+    }
+
+    public void setPrexp(double prexp) {
+        this.prexp = prexp;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }
