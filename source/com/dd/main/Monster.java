@@ -1,7 +1,5 @@
 package com.dd.main;
 
-import java.util.Random;
-
 public class Monster {
     private String name;
     private int maxhp;
