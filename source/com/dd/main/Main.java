@@ -55,7 +55,7 @@ public class Main {
 
             int cmd = in.nextInt();
             in.nextLine();
-
+            
             //FIGHT
             if (cmd == 1) {
 
@@ -122,7 +122,7 @@ public class Main {
 
         }
     }
-
+    //auswahl tätigen (adventrue, brawl, shopping)
     public void inTavern(){
         System.out.println("Welcome to the Tavern! What will you do?");
         System.out.println("[1] Go on an adventure!");
@@ -132,17 +132,17 @@ public class Main {
         int inTavern = in.nextInt();
         in.nextLine();
 
-        //Adventure
+        //ADVENTURE
         if (inTavern == 1) {
             System.out.println("You start an Adventure!");
             //TODO: Delay + flee system
             initDatabase();
-            //Brawl
+            //BRAWL
         } else if (inTavern == 2) {
             //TODO: Brawl system
             System.out.println("There are no opponent's!");
             inTavern();
-            //Shopping
+            //SHOPPING
         } else if (inTavern == 3) {
             //TODO: Shopping system
             System.out.println("There is no trader!");
