@@ -28,11 +28,12 @@ public class Main {
     }
 
     public void initializeGame() {
-        initDatabase();
         System.out.println("Welcome to DankestDungeons");
         System.out.println("Please type in your Player name:");
         Player.getPlayer().setName(in.nextLine());
         System.out.println("Hello " + Player.getPlayer().getName() + " there are many adventures awaiting you!");
+        initDatabase();
+        inTavern();
 
     }
 
@@ -47,9 +48,9 @@ public class Main {
 
             //auswahl tätigen (kämpfen, item, flüchten)
             System.out.println("TURN " + rndCnt + ". What will you do?");
-            System.out.println("1 FIGHT");
-            System.out.println("2 ITEM");
-            System.out.println("3 FLEE");
+            System.out.println("[1] FIGHT");
+            System.out.println("[2] ITEM");
+            System.out.println("[3] FLEE");
             //TODO: command input befehl
 
             int cmd = in.nextInt();
@@ -62,12 +63,14 @@ public class Main {
                 monster.setHp(monster.getHp() - player.getBaseAttack());
                 System.out.println("You did " + player.getBaseAttack() + " damage");
                 System.out.println("The " + monster.getName() + " has " + monster.getHp() + "/" + monster.getMaxhp() + " HP left.");
-                //gegner führt schritt aus
                 TimeUnit.SECONDS.sleep(1);
 
+                //gegner führt schritt aus
                 player.setHp(player.getHp() - monster.getAttack());
                 System.out.println("The " + monster.getName() + " did " + monster.getAttack() + " damage");
                 System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                TimeUnit.SECONDS.sleep(1);
+
                 if (player.getHp() <= 0) {
                     System.out.println("You died!");
                     inCombat = false;
@@ -85,6 +88,7 @@ public class Main {
                 //ITEM used true/false
                 if (itemuse == true) {
                     System.out.println("You successfully used " + "item" + "!");
+                    System.out.println(" ");
                     //gegner führt schritt aus
                         TimeUnit.SECONDS.sleep(1);
 
@@ -109,6 +113,7 @@ public class Main {
             } else if (cmd == 3) {
                 System.out.println("You escaped!");
                 inCombat = false;
+                inTavern();
             } else {
                 System.out.println("Please enter a valid number!");
             }
@@ -117,5 +122,34 @@ public class Main {
 
         }
     }
-}
 
+    public void inTavern(){
+        System.out.println("Welcome to the Tavern! What will you do?");
+        System.out.println("[1] Go on an adventure!");
+        System.out.println("[2] Start a brawl!");
+        System.out.println("[3] Go shopping!");
+
+        int inTavern = in.nextInt();
+        in.nextLine();
+
+        //Adventure
+        if (inTavern == 1) {
+            System.out.println("You start an Adventure!");
+            //TODO: Delay + flee system
+            initDatabase();
+            //Brawl
+        } else if (inTavern == 2) {
+            //TODO: Brawl system
+            System.out.println("There are no opponent's!");
+            inTavern();
+            //Shopping
+        } else if (inTavern == 3) {
+            //TODO: Shopping system
+            System.out.println("There is no trader!");
+            inTavern();
+        } else {
+            System.out.println("Please enter a valid number!");
+        }
+        System.out.println(" ");
+    }
+}
