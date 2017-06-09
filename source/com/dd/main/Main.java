@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private Scanner in = new Scanner(System.in);
+    //player level before (pLvl1) and after (pLvl2) level up
 
     public static void main(String[] args) {
         Main m = new Main();
@@ -33,8 +34,6 @@ public class Main {
         Player.getPlayer().setName(in.nextLine());
         System.out.println("Hello " + Player.getPlayer().getName() + " there are many adventures awaiting you!");
         initDatabase();
-        inTavern();
-
     }
 
     public void combatSystem(Monster monster) throws InterruptedException {
@@ -55,7 +54,7 @@ public class Main {
 
             int cmd = in.nextInt();
             in.nextLine();
-            
+
             //FIGHT
             if (cmd == 1) {
 
@@ -77,6 +76,11 @@ public class Main {
                 } else if (monster.getHp() <= 0) {
                     System.out.println("You won!");
                     inCombat = false;
+                    player.setGold(player.getGold() + monster.getGold());
+                    player.setXp(player.getXp() + monster.getXp());
+                    System.out.println("You gained " + monster.getGold() + " Gold");
+                    System.out.println("and " + monster.getXp() + " XP!");
+                    checkPlayerLvl();
                 }
                 rndCnt++;
 
@@ -86,7 +90,7 @@ public class Main {
 
                 //TODO: ITEMS
                 //ITEM used true/false
-                if (itemuse == true) {
+                if (itemuse) {
                     System.out.println("You successfully used " + "item" + "!");
                     System.out.println(" ");
                     //gegner führt schritt aus
@@ -101,19 +105,22 @@ public class Main {
                     } else if (monster.getHp() <= 0) {
                         System.out.println("You won!");
                         inCombat = false;
+                        player.setGold(player.getGold() + monster.getGold());
+                        player.setXp(player.getXp() + monster.getXp());
+                        System.out.println("You gained " + monster.getGold() + " Gold");
+                        System.out.println("and " + monster.getXp() + " XP!");
+                        checkPlayerLvl();
                     }
                     rndCnt++;
 
                 } else {
                     System.out.println("You didn't use any item!");
-
                 }
 
                 //FLEE
             } else if (cmd == 3) {
                 System.out.println("You escaped!");
                 inCombat = false;
-                inTavern();
             } else {
                 System.out.println("Please enter a valid number!");
             }
@@ -121,13 +128,17 @@ public class Main {
 
 
         }
+        inTavern();
     }
     //auswahl tätigen (adventrue, brawl, shopping)
     public void inTavern(){
+        Player player = Player.getPlayer();
         System.out.println("Welcome to the Tavern! What will you do?");
         System.out.println("[1] Go on an adventure!");
         System.out.println("[2] Start a brawl!");
         System.out.println("[3] Go shopping!");
+        System.out.println("[4] Check the status!");
+        System.out.println("[5] Free healing!");
 
         int inTavern = in.nextInt();
         in.nextLine();
@@ -135,20 +146,58 @@ public class Main {
         //ADVENTURE
         if (inTavern == 1) {
             System.out.println("You start an Adventure!");
-            //TODO: Delay + flee system
+            System.out.println(" ");
+            //TODO: Delay
             initDatabase();
             //BRAWL
         } else if (inTavern == 2) {
             //TODO: Brawl system
             System.out.println("There are no opponent's!");
+            System.out.println(" ");
             inTavern();
             //SHOPPING
         } else if (inTavern == 3) {
             //TODO: Shopping system
-            System.out.println("There is no trader!");
+            System.out.println("You have " + player.getGold() + " Gold. But there is no trader!");
+            System.out.println(" ");
+            inTavern();
+        } else if (inTavern == 4) {
+            System.out.println("Hello " + player.getName() + "!");
+            System.out.println("You are level " + player.getLvl() + " with " + player.getXp() + "/" + player.getNexxp() + " XP!");
+            System.out.println("You deal " + player.getBaseAttack() + " damage!"); //TODO: attackdamage with additions of weopons etc.
+            System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP!");
+            if (player.getHp() < player.getMaxhp()) {
+                System.out.println("You can heal your hit points in the tavern!");
+            }
+            System.out.println("You have " + player.getGold() + " Gold!");
+            System.out.println(" ");
+            inTavern();
+        } else if (inTavern == 5) {
+            healPlayer();
+            System.out.println(" ");
             inTavern();
         } else {
             System.out.println("Please enter a valid number!");
+            System.out.println(" ");
+            inTavern();
+        }
+    }
+
+    public void healPlayer(){
+        Player player = Player.getPlayer();
+        player.setHp(player.getMaxhp());
+        System.out.println("You have been healed!");
+        System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + " HP!");
+    }
+
+    public void checkPlayerLvl(){
+        Player player = Player.getPlayer();
+        if (player.getXp() >= player.getNexxp()) {
+            player.calcPlayerLevel();
+            System.out.println("Congratulations you reached level " + player.getLvl() + "!");
+            System.out.println("For the next level up you have " + player.getXp() + "/" + player.getNexxp() + " XP!");
+        } else {
+            System.out.println("You have now " + player.getXp() + "/" + player.getNexxp() + " XP!");
         }
         System.out.println(" ");
     }

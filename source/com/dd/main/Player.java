@@ -24,7 +24,7 @@ public class Player {
         xp = 0;
         nexxp = 100;
         prexp = 0;
-        gold = 50;
+        gold = 0;
     }
 
     public void calcPlayerLevel() {
