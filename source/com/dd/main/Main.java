@@ -2,21 +2,22 @@ package com.dd.main;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 public class Main {
     private Scanner in = new Scanner(System.in);
-    //player level before (pLvl1) and after (pLvl2) level up
+    private Random rand = new Random();
+    int rng;
 
     public static void main(String[] args) {
         Main m = new Main();
         m.initializeGame();
-
     }
 
     public void initDatabase() {
         DBController dbc = DBController.getInstance();
         dbc.initDBConnection();
-        Monster myMonster = dbc.getMonsterfromID(1);
+        Monster myMonster = dbc.getMonsterfromID(rng = rand.nextInt(6) + 1); //random number generator the 1. num is max and 2. num is min (6 is max 1 is min)
         String test = myMonster.getName();
         System.out.println("We have a monster with the Name = " + test);
         try {
