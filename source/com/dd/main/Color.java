@@ -39,16 +39,8 @@ public class Color {
         return Black;
     }
 
-    public void setBlack(String black) {
-        Black = black;
-    }
-
     public String getRed() {
         return Red;
-    }
-
-    public void setRed(String red) {
-        Red = red;
     }
 
     public String getGreen() {

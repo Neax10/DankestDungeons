@@ -87,11 +87,11 @@ public class DBController {
             while (rs.next()) {
                 weapons.setName(rs.getString("name"));
                 weapons.setLevel(rs.getInt("level"));
-                weapons.setDmgmin(rs.getInt("damage min"));// --> mindamage
-                weapons.setDmgmax(rs.getInt("damage max"));// --> maxdamage
+                weapons.setDmgmin(rs.getInt("mindamage"));
+                weapons.setDmgmax(rs.getInt("maxdamage"));
                 weapons.setHanded(rs.getInt("handed"));
-                weapons.setBuyprice(rs.getInt("buy price"));// --> buyprice
-                weapons.setSellprice(rs.getInt("sell price"));// --> sellprice
+                weapons.setBuyprice(rs.getInt("buyprice"));
+                weapons.setSellprice(rs.getInt("sellprice"));
                 weapons.setTradable(rs.getInt("tradable"));
             }
         } catch (SQLException e) {

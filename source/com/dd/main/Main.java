@@ -208,6 +208,7 @@ public class Main {
                     System.out.println(" ");
                 } else if (Shop == 3) {
                     System.out.println("There is no Item trader!");
+                    System.out.println(" ");
                 } else if (Shop == 4) {
                     System.out.println("You left the shop!");
                     inShop = false;
