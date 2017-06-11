@@ -28,14 +28,15 @@ public class DBController {
     }
 
     public void initDBConnection() {
+        Color color = new Color();
         try {
             if (connection != null)
                 return;
-            System.out.println("Creating Connection to Database...");
+            System.out.println(color.getRed() + "Creating Connection to Database..." + color.getDefault());
             connection = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
             statement = connection.createStatement();
             if (!connection.isClosed())
-                System.out.println("...Connection established");
+                System.out.println(color.getRed() + "...Connection established" + color.getDefault());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -75,6 +76,29 @@ public class DBController {
 
         System.out.println("Created a Monster with ID = " + ID);
         return monster;
+    }
+
+    public Weapons getWeaponfromID(int ID){
+        Weapons weapons = new Weapons();
+
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery("SELECT * FROM Weapons WHERE ID = " + ID);
+            while (rs.next()) {
+                weapons.setName(rs.getString("name"));
+                weapons.setLevel(rs.getInt("level"));
+                weapons.setDmgmin(rs.getInt("damage min"));// --> mindamage
+                weapons.setDmgmax(rs.getInt("damage max"));// --> maxdamage
+                weapons.setHanded(rs.getInt("handed"));
+                weapons.setBuyprice(rs.getInt("buy price"));// --> buyprice
+                weapons.setSellprice(rs.getInt("sell price"));// --> sellprice
+                weapons.setTradable(rs.getInt("tradable"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return weapons;
     }
 
 }

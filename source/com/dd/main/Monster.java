@@ -4,8 +4,8 @@ public class Monster {
     private String name;
     private int maxhp;
     private int hp;
-    private int lvl;
     private int attack;
+    private int lvl;
     private int gold;
     private int xp;
 
@@ -40,20 +40,20 @@ public class Monster {
         this.hp = hp;
     }
 
-    public int getLvl() {
-        return lvl;
-    }
-
-    public void setLvl(int lvl) {
-        this.lvl = lvl;
-    }
-
     public int getAttack() {
         return attack;
     }
 
     public void setAttack(int attack) {
         this.attack = attack;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
     }
 
     public int getGold() {
