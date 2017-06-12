@@ -15,7 +15,16 @@ public class Player {
     private int xp;
     private int nexxp;
     private int prexp;
+    private int statusPoints;
     private int gold;
+
+    private int strength; //physical damage
+    private int intelligence; //magical damage
+    private int vitality; //hitpoints
+    private int dexterity; //dodge chance
+    private int luck; //critical strikes chance
+
+
 
     //Equipment
     //TODO: EquippedWeapon
@@ -135,6 +144,7 @@ public class Player {
     public void calcPlayerLevel() {
         xp = xp - nexxp;
         lvl = lvl + 1;
+        statusPoints++;
         maxhp = 90 + lvl * 10;
         baseAttack = 9 + lvl;
         minBaseAttack = (int)(baseAttack * 0.8);
@@ -268,11 +278,59 @@ public class Player {
         this.prexp = prexp;
     }
 
+    public int getStatusPoints() {
+        return statusPoints;
+    }
+
+    public void setStatusPoints(int statusPoints) {
+        this.statusPoints = statusPoints;
+    }
+
     public int getGold() {
         return gold;
     }
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public int getVitality() {
+        return vitality;
+    }
+
+    public void setVitality(int vitality) {
+        this.vitality = vitality;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public int getLuck() {
+        return luck;
+    }
+
+    public void setLuck(int luck) {
+        this.luck = luck;
     }
 }
