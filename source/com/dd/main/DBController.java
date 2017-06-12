@@ -1,5 +1,6 @@
 package com.dd.main;
 
+import javax.naming.Name;
 import java.sql.*;
 
 
@@ -78,27 +79,27 @@ public class DBController {
         return monster;
     }
 
-    public Weapons getWeaponfromID(int ID){
-        Weapons weapons = new Weapons();
+    public Weapon getWeaponfromID(int ID){
+        Weapon weapon = new Weapon();
 
         ResultSet rs = null;
         try {
-            rs = statement.executeQuery("SELECT * FROM Weapons WHERE ID = " + ID);
+            rs = statement.executeQuery("SELECT * FROM Weapon WHERE ID = " + ID);
             while (rs.next()) {
-                weapons.setName(rs.getString("name"));
-                weapons.setLevel(rs.getInt("level"));
-                weapons.setDmgmin(rs.getInt("mindamage"));
-                weapons.setDmgmax(rs.getInt("maxdamage"));
-                weapons.setHanded(rs.getInt("handed"));
-                weapons.setBuyprice(rs.getInt("buyprice"));
-                weapons.setSellprice(rs.getInt("sellprice"));
-                weapons.setTradable(rs.getInt("tradable"));
+                weapon.setName(rs.getString("name"));
+                weapon.setLevel(rs.getInt("level"));
+                weapon.setDmgmin(rs.getInt("mindamage"));
+                weapon.setDmgmax(rs.getInt("maxdamage"));
+                weapon.setHanded(rs.getInt("handed"));
+                weapon.setBuyprice(rs.getInt("buyprice"));
+                weapon.setSellprice(rs.getInt("sellprice"));
+                weapon.setTradable(rs.getInt("tradable"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return weapons;
+        return weapon;
     }
 
 }

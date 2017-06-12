@@ -4,20 +4,22 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.Random;
 
+import static com.dd.main.Player.*;
+
 public class Main {
     private Scanner in = new Scanner(System.in);
     private Random rand = new Random();
-    int rng;
 
     public static void main(String[] args) {
         Main m = new Main();
-        m.initializeGame();
+        m.initDatabase();
     }
 
     public void initDatabase() {
         DBController dbc = DBController.getInstance();
         dbc.initDBConnection();
-        Monster myMonster = dbc.getMonsterfromID(rng = rand.nextInt(6) + 1); //random number generator the 1. num is max and 2. num is min (6 is max 1 is min)
+        initializeGame();
+        Monster myMonster = dbc.getMonsterfromID(rand.nextInt(6) + 1);
         String test = myMonster.getName();
         System.out.println("We have a monster with the Name = " + test);
         System.out.println(" ");
@@ -31,16 +33,18 @@ public class Main {
     }
 
     public void initializeGame() {
+
+
         System.out.println("Welcome to DankestDungeons");
         System.out.println("Please type in your Player name:");
-        Player.getPlayer().setName(in.nextLine());
-        System.out.println("Hello " + Player.getPlayer().getName() + " there are many adventures awaiting you!");
+        getPlayer().setName(in.nextLine());
+        System.out.println("Hello " + getPlayer().getName() + " there are many adventures awaiting you!");
         System.out.println(" ");
-        initDatabase();
+
     }
 
     public void combatSystem(Monster monster) throws InterruptedException {
-        Player player = Player.getPlayer();
+        Player player = getPlayer();
         boolean inCombat = true;
         int rndCnt = 1;
         //monster erscheint
@@ -53,6 +57,8 @@ public class Main {
             System.out.println("[1] FIGHT");
             System.out.println("[2] ITEM");
             System.out.println("[3] FLEE");
+            System.out.println("[4] Dev. Heal");
+            System.out.println("[5] Dev. Kill");
             //TODO: command input befehl
 
             int cmd = in.nextInt();
@@ -66,7 +72,6 @@ public class Main {
                 monster.setHp(monster.getHp() - player.getAttack());
                 System.out.println("You did " + player.getAttack() + " damage");
                 System.out.println("The " + monster.getName() + " has " + monster.getHp() + "/" + monster.getMaxhp() + " HP left.");
-                TimeUnit.SECONDS.sleep(1);
 
                 //gegner führt schritt aus
                 player.setHp(player.getHp() - monster.getAttack());
@@ -98,11 +103,11 @@ public class Main {
                     System.out.println("You successfully used " + "item" + "!");
                     System.out.println(" ");
                     //gegner führt schritt aus
-                        TimeUnit.SECONDS.sleep(1);
 
                     player.setHp(player.getHp() - monster.getAttack());
                     System.out.println("The " + monster.getName() + " did " + monster.getAttack() + " damage");
                     System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                    TimeUnit.SECONDS.sleep(1);
                     if (player.getHp() <= 0) {
                         System.out.println("You died!");
                         inCombat = false;
@@ -125,6 +130,16 @@ public class Main {
             } else if (cmd == 3) {
                 System.out.println("You escaped!");
                 inCombat = false;
+            } else if (cmd == 4) {
+                healPlayer();
+            } else if (cmd == 5) {
+                System.out.println("You won!");
+                inCombat = false;
+                player.setGold(player.getGold() + monster.getGold());
+                player.setXp(player.getXp() + monster.getXp());
+                System.out.println("You gained " + monster.getGold() + " Gold");
+                System.out.println("and " + monster.getXp() + " XP!");
+                checkPlayerLvl();
             } else {
                 System.out.println("Please enter a valid number!");
             }
@@ -136,7 +151,7 @@ public class Main {
     }
 
     public void Village() {
-        Player player = Player.getPlayer();
+        Player player = getPlayer();
         System.out.println("Welcome to the Village! What will you do?");
         System.out.println("[1] Go to the tavern!");
         System.out.println("[2] Go shopping!");
@@ -149,11 +164,10 @@ public class Main {
             //SHOPPING
         } else if (Village == 2) {
             DBController dbc = DBController.getInstance();
-            dbc.initDBConnection();
             boolean inShop = true;
             while (inShop) {
                 System.out.println("You have " + player.getGold() + " Gold. What do you want to buy?");
-                System.out.println("[1] Weapons");
+                System.out.println("[1] EquippedWeapon");
                 System.out.println("[2] Armor");
                 System.out.println("[3] Items");
                 System.out.println("[4] Leave Shop");
@@ -164,13 +178,13 @@ public class Main {
                 if (Shop == 1) {
                     boolean weapontrader = true;
                     while (weapontrader) {
-                        System.out.println("Weapons: ");
+                        System.out.println("Weapon: ");
                         int cnt;
                         int itm = 1;
                         for (cnt = 1; cnt <= 11; cnt++) {
-                            Weapons shopweapons = dbc.getWeaponfromID(cnt);
-                            if (shopweapons.getTradable() == 1) {
-                                System.out.println("[" + cnt + "] " + shopweapons.getName() + ", level " + shopweapons.getLevel() + ", " + shopweapons.getDmgmin() + "-" + shopweapons.getDmgmax() + " damage, " + shopweapons.getHanded() + " Handed, " + shopweapons.getBuyprice() + " Gold");
+                            Weapon shopweapon = dbc.getWeaponfromID(cnt);
+                            if (shopweapon.getTradable() == 1) {
+                                System.out.println("[" + cnt + "] " + shopweapon.getName() + ", level " + shopweapon.getLevel() + ", " + shopweapon.getDmgmin() + "-" + shopweapon.getDmgmax() + " damage, " + shopweapon.getHanded() + " Handed, " + shopweapon.getBuyprice() + " Gold");
                                 itm++;
                             }
                         }
@@ -181,7 +195,7 @@ public class Main {
                         in.nextLine();
 
                         //check weapon id
-                        Weapons shopweapons = dbc.getWeaponfromID(shopWeapons);
+                        Weapon shopweapons = dbc.getWeaponfromID(shopWeapons);
                         //Test item line!!! System.out.println("You want to buy " + shopweapons.getName() + "!");
                         if (shopweapons.getTradable() == 1) {
                             if (player.getGold() >= shopweapons.getBuyprice()) {
@@ -220,8 +234,10 @@ public class Main {
             System.out.println(" ");
 
         } else if (Village == 3) {
+            Player.EquippedWeapon equippedweapon = player.new EquippedWeapon();
             System.out.println("Hello " + player.getName() + "!");
             System.out.println("You are level " + player.getLvl() + " with " + player.getXp() + "/" + player.getNexxp() + " XP!");
+            System.out.println("You have equipped " + equippedweapon.getName() + "!");
             System.out.println("You deal " + player.getMinBaseAttack() + "-" + player.getMaxBaseAttack() + " damage!"); //TODO: attackdamage with additions of weopons etc.
             System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP!");
             if (player.getHp() < player.getMaxhp()) {
@@ -229,24 +245,25 @@ public class Main {
             }
             System.out.println("You have " + player.getGold() + " Gold!");
             System.out.println(" ");
-            inTavern();
+            Village();
         } else {
-        System.out.println("Please enter a valid number!");
-        System.out.println(" ");
-        inTavern();
+            System.out.println("Please enter a valid number!");
+            System.out.println(" ");
+            inTavern();
         }
         System.out.println(" ");
     }
 
     //auswahl tätigen (adventrue, brawl, shopping)
     public void inTavern(){
-        Player player = Player.getPlayer();
+        Player player = getPlayer();
         System.out.println("Welcome to the Tavern! What will you do?");
         System.out.println("[1] Go on an adventure!");
         System.out.println("[2] Start a brawl!");
         System.out.println("[3] Check the status!");
         System.out.println("[4] Free healing!");
         System.out.println("[5] Leave the tavern");
+        System.out.println("[6] Dev. Level up");
 
         int inTavern = in.nextInt();
         in.nextLine();
@@ -280,6 +297,19 @@ public class Main {
             inTavern();
         } else if (inTavern == 5) {
             Village();
+        } else if (inTavern == 6) {
+
+            System.out.println("You are level " + player.getLvl() + ". How many level ups do you want?");
+
+            int lvlup = in.nextInt();
+            in.nextLine();
+
+            for (int lvl = 0; lvl < lvlup ; lvl++){
+                player.setXp(player.getNexxp());
+                player.calcPlayerLevel();
+            }
+            inTavern();
+
         } else {
             System.out.println("Please enter a valid number!");
             System.out.println(" ");
@@ -288,14 +318,14 @@ public class Main {
     }
 
     public void healPlayer(){
-        Player player = Player.getPlayer();
+        Player player = getPlayer();
         player.setHp(player.getMaxhp());
         System.out.println("You have been healed!");
         System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + " HP!");
     }
 
     public void checkPlayerLvl(){
-        Player player = Player.getPlayer();
+        Player player = getPlayer();
         if (player.getXp() >= player.getNexxp()) {
             player.calcPlayerLevel();
             System.out.println("Congratulations you reached level " + player.getLvl() + "!");

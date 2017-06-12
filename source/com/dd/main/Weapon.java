@@ -1,6 +1,6 @@
 package com.dd.main;
 
-public class Weapons {
+public class Weapon {
     private String name;
     private int level;
     private int dmgmin;
@@ -10,7 +10,7 @@ public class Weapons {
     private int sellprice;
     private int tradable;
 
-    /*public static Weapons getWeapons(){
+    /*public static EquippedWeapon getWeapons(){
 
     }*/
 

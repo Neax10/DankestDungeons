@@ -1,6 +1,5 @@
 package com.dd.main;
 
-import java.util.DoubleSummaryStatistics;
 import java.util.Random;
 
 public class Player {
@@ -13,14 +12,14 @@ public class Player {
     private int maxBaseAttack;
     private int attack; //damage values together
     private int lvl;
-    private double xp;
-    private double nexxp;
-    private double prexp;
+    private int xp;
+    private int nexxp;
+    private int prexp;
     private int gold;
 
     //Equipment
-    //TODO: Weapons
-    private class Weapons {
+    //TODO: EquippedWeapon
+    public class EquippedWeapon {
         private String name;
         private int level;
         private int dmgmin;
@@ -104,19 +103,33 @@ public class Player {
 
     //TODO: Implement weapons and armor
     private void InitPlayer() {
-        //Weapons weapons = Weapons.getWeapons();
+        Player.EquippedWeapon equipweapon = new EquippedWeapon();
+        DBController dbc = DBController.getInstance();
+        Weapon equippedweapon = dbc.getWeaponfromID(1);
+
         hp = 100;
         maxhp = 100;
         baseAttack = 10;
-        //minBaseAttack = baseAttack * 0.8;
-        //maxBaseAttack = baseAttack * 1.2;
-        //attack = baseAttack + (Weapon dmg (max and min));
+        minBaseAttack = (int)(baseAttack * 0.8);
+        maxBaseAttack = (int)(baseAttack * 1.2);
+        //attack = baseAttack + (EquippedWeapon dmg (max and min));
         lvl = 1;
         xp = 0;
         nexxp = 100;
         prexp = 0;
         gold = 0;
-        calcPlayerDmg();
+
+
+        equipweapon.setName(equippedweapon.getName());
+        equipweapon.setLevel(equippedweapon.getLevel());
+        equipweapon.setDmgmin(equippedweapon.getDmgmin());
+        equipweapon.setDmgmax(equippedweapon.getDmgmax());
+        equipweapon.setHanded(equippedweapon.getHanded());
+        /*
+        equipweapon.setBuyprice(equippedweapon.getBuyprice());
+        equipweapon.setSellprice(equippedweapon.getSellprice());
+        equipweapon.setTradable(equippedweapon.getTradable());
+        */
     }
 
     public void calcPlayerLevel() {
@@ -124,37 +137,22 @@ public class Player {
         lvl = lvl + 1;
         maxhp = 90 + lvl * 10;
         baseAttack = 9 + lvl;
+        minBaseAttack = (int)(baseAttack * 0.8);
+        maxBaseAttack = (int)(baseAttack * 1.2);
         hp = hp + 10;
         prexp = nexxp;
-        nexxp = prexp * 1.5;
+        nexxp = (int)(prexp * 1.5);
+        calcPlayerDmg();
     }
 
-    //TODO: Player damage calculator
     public void calcPlayerDmg(){
-        minBaseAttack = baseAttack;
-        maxBaseAttack = baseAttack;
-        if (baseAttack >= 10){
-            minBaseAttack = baseAttack - 2;
-            maxBaseAttack = baseAttack + 2;
-            if (baseAttack >= 100){
-                minBaseAttack = baseAttack - 20;
-                maxBaseAttack = baseAttack + 20;
-                if (baseAttack >= 1000){
-                    minBaseAttack = baseAttack - 200;
-                    maxBaseAttack = baseAttack + 200;
-                    if (baseAttack >= 10000){
-                        minBaseAttack = baseAttack - 2000;
-                        maxBaseAttack = baseAttack + 2000;
-                    }
-                }
-            }
-        }
-        attack = (int)(Math.random() * (maxBaseAttack - minBaseAttack + 1)) + minBaseAttack;
+        Random rand = new Random();
+        attack = (int)(rand.nextFloat() * (maxBaseAttack - minBaseAttack + 1) + minBaseAttack);
     }
 
     public void equipWeapon(){
         //TODO: Inventory connection
-        Player.Weapons equipweapon = new Weapons();
+        EquippedWeapon equipweapon = new EquippedWeapon();
 
         /*equipweapon.setName();
         equipweapon.setLevel();
@@ -246,27 +244,27 @@ public class Player {
         this.lvl = lvl;
     }
 
-    public double getXp() {
+    public int getXp() {
         return xp;
     }
 
-    public void setXp(double xp) {
+    public void setXp(int xp) {
         this.xp = xp;
     }
 
-    public double getNexxp() {
+    public int getNexxp() {
         return nexxp;
     }
 
-    public void setNexxp(double nexxp) {
+    public void setNexxp(int nexxp) {
         this.nexxp = nexxp;
     }
 
-    public double getPrexp() {
+    public int getPrexp() {
         return prexp;
     }
 
-    public void setPrexp(double prexp) {
+    public void setPrexp(int prexp) {
         this.prexp = prexp;
     }
 
