@@ -11,6 +11,8 @@ public class Player {
     private int minBaseAttack;
     private int maxBaseAttack;
     private int attack; //damage values together
+    private int dodge;
+    private int crit;
     private int lvl;
     private int xp;
     private int nexxp;
@@ -23,6 +25,9 @@ public class Player {
     private int vitality; //hitpoints
     private int dexterity; //dodge chance
     private int luck; //critical strikes chance
+
+    private int stamina;
+    private int mana;
 
 
 
@@ -112,33 +117,65 @@ public class Player {
 
     //TODO: Implement weapons and armor
     private void InitPlayer() {
+        /*
         Player.EquippedWeapon equipweapon = new EquippedWeapon();
         DBController dbc = DBController.getInstance();
         Weapon equippedweapon = dbc.getWeaponfromID(1);
+        */
 
-        hp = 100;
-        maxhp = 100;
-        baseAttack = 10;
+        //Points per level = 10
+        strength = 5; //1 dmg = 5 Str
+        intelligence = 5; //1 mag.dmg = 5 Int
+        vitality = 5; //2 hp = 1 Vit
+        dexterity = 5; //1% dodge 10 Dex
+        luck = 5; //1% crit = 10 Luc
+
+        hp = 10 + vitality * 2;
+        maxhp = 10 + vitality * 2;
+        int teststrength = strength;
+        int testdexterity = dexterity;
+        while (teststrength > 0 && testdexterity > 0){
+            teststrength--;
+            testdexterity--;
+            stamina += 2;
+        }
+        mana = intelligence;
+        baseAttack =  strength / 5;
         minBaseAttack = (int)(baseAttack * 0.8);
         maxBaseAttack = (int)(baseAttack * 1.2);
         //attack = baseAttack + (EquippedWeapon dmg (max and min));
+        dodge = dexterity / 10;
+        crit = luck / 10;
         lvl = 1;
         xp = 0;
         nexxp = 100;
         prexp = 0;
         gold = 0;
 
-
+        /*
         equipweapon.setName(equippedweapon.getName());
         equipweapon.setLevel(equippedweapon.getLevel());
         equipweapon.setDmgmin(equippedweapon.getDmgmin());
         equipweapon.setDmgmax(equippedweapon.getDmgmax());
         equipweapon.setHanded(equippedweapon.getHanded());
-        /*
+
         equipweapon.setBuyprice(equippedweapon.getBuyprice());
         equipweapon.setSellprice(equippedweapon.getSellprice());
         equipweapon.setTradable(equippedweapon.getTradable());
         */
+    }
+
+    public void checkPlayerLvl(){
+        Player player = Player.getPlayer();
+        if (player.getXp() >= player.getNexxp()) {
+            player.calcPlayerLevel();
+            System.out.println("Congratulations you reached level " + player.getLvl() + "!");
+            System.out.println("For the next level up you have " + player.getXp() + "/" + player.getNexxp() + " XP!");
+            System.out.println("You got 10 status points. Now you have " + player.getStatusPoints() + " status points");
+        } else {
+            System.out.println("You have now " + player.getXp() + "/" + player.getNexxp() + " XP!");
+        }
+        System.out.println(" ");
     }
 
     public void calcPlayerLevel() {
@@ -151,7 +188,8 @@ public class Player {
         maxBaseAttack = (int)(baseAttack * 1.2);
         hp = hp + 10;
         prexp = nexxp;
-        nexxp = (int)(prexp * 1.5);
+        nexxp = (int)(prexp * 1.25);
+        statusPoints += 10;
         calcPlayerDmg();
     }
 
@@ -173,6 +211,13 @@ public class Player {
         equipweapon.setSellprice();
         equipweapon.setTradable();*/
         System.out.println("You equipped " + /*Item from inventory +*/ "!");
+    }
+
+    public void healPlayer(){
+        Player player = getPlayer();
+        player.setHp(player.getMaxhp());
+        System.out.println("You have been healed!");
+        System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + " HP!");
     }
 
     public static Player getPlayer() {
@@ -246,6 +291,22 @@ public class Player {
         this.attack = attack;
     }
 
+    public int getCrit() {
+        return crit;
+    }
+
+    public void setCrit(int crit) {
+        this.crit = crit;
+    }
+
+    public int getDodge() {
+        return dodge;
+    }
+
+    public void setDodge(int dodge) {
+        this.dodge = dodge;
+    }
+
     public int getLvl() {
         return lvl;
     }
@@ -293,6 +354,8 @@ public class Player {
     public void setGold(int gold) {
         this.gold = gold;
     }
+
+    /**================================================Status points=================================================**/
 
     public int getStrength() {
         return strength;

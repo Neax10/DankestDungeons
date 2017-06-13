@@ -1,6 +1,5 @@
 package com.dd.main;
 
-import javax.naming.Name;
 import java.sql.*;
 
 
