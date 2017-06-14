@@ -68,7 +68,7 @@ public class DBController {
                 monster.setMaxhp(rs.getInt("maxhealth"));
                 monster.setGold(rs.getInt("gold"));
                 monster.setXp(rs.getInt("xp"));
-                monster.setAttack(rs.getInt("damage"));
+                monster.setBaseAttack(rs.getInt("damage"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

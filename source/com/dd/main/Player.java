@@ -1,6 +1,7 @@
 package com.dd.main;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Player {
     private static Player instance;
@@ -26,10 +27,12 @@ public class Player {
     private int dexterity; //dodge chance
     private int luck; //critical strikes chance
 
+    private int maxstamina;
     private int stamina;
+    private int maxmana;
     private int mana;
 
-
+    private boolean heal;
 
     //Equipment
     //TODO: EquippedWeapon
@@ -124,33 +127,20 @@ public class Player {
         */
 
         //Points per level = 10
-        strength = 5; //1 dmg = 5 Str
-        intelligence = 5; //1 mag.dmg = 5 Int
-        vitality = 5; //2 hp = 1 Vit
-        dexterity = 5; //1% dodge 10 Dex
-        luck = 5; //1% crit = 10 Luc
+        strength = 10; //1 dmg = 5 Str
+        intelligence = 10; //1 mag.dmg = 5 Int
+        vitality = 10; //2 hp = 1 Vit
+        dexterity = 10; //1% dodge 10 Dex
+        luck = 10; //1% crit = 10 Luc
 
-        hp = 10 + vitality * 2;
-        maxhp = 10 + vitality * 2;
-        int teststrength = strength;
-        int testdexterity = dexterity;
-        while (teststrength > 0 && testdexterity > 0){
-            teststrength--;
-            testdexterity--;
-            stamina += 2;
-        }
-        mana = intelligence;
-        baseAttack =  strength / 5;
-        minBaseAttack = (int)(baseAttack * 0.8);
-        maxBaseAttack = (int)(baseAttack * 1.2);
-        //attack = baseAttack + (EquippedWeapon dmg (max and min));
-        dodge = dexterity / 10;
-        crit = luck / 10;
+        hp = 80 + vitality * 2;
+        maxhp = 80 + vitality * 2;
         lvl = 1;
         xp = 0;
         nexxp = 100;
         prexp = 0;
         gold = 0;
+        calcPlayerStats();
 
         /*
         equipweapon.setName(equippedweapon.getName());
@@ -179,23 +169,46 @@ public class Player {
     }
 
     public void calcPlayerLevel() {
+        Player.EquippedWeapon equippedWeapon = new EquippedWeapon();
+
         xp = xp - nexxp;
         lvl = lvl + 1;
-        statusPoints++;
-        maxhp = 90 + lvl * 10;
+        maxhp = 80 + vitality * 2;
         baseAttack = 9 + lvl;
-        minBaseAttack = (int)(baseAttack * 0.8);
-        maxBaseAttack = (int)(baseAttack * 1.2);
-        hp = hp + 10;
+        minBaseAttack = (int)(baseAttack * 0.8) + equippedWeapon.getDmgmin();
+        maxBaseAttack = (int)(baseAttack * 1.2) + equippedWeapon.getDmgmax();
         prexp = nexxp;
         nexxp = (int)(prexp * 1.25);
         statusPoints += 10;
-        calcPlayerDmg();
+        calcPlayerStats();
     }
 
-    public void calcPlayerDmg(){
+    public void calcPlayerStats(){
         Random rand = new Random();
+        Player.EquippedWeapon equippedWeapon = new EquippedWeapon();
+
+        if (heal) {
+            hp = 80 + vitality * 2;
+            maxhp = 80 + vitality * 2;
+            System.out.println(heal + "success!");
+        }
+        if (strength >= dexterity){
+            maxstamina = dexterity * 2;
+            stamina = maxstamina;
+        } else if (strength <= dexterity){
+            maxstamina = strength * 2;
+            stamina = maxstamina;
+        } else {
+            System.out.println("ERROR: stat.calc.fail");
+        }
+        maxmana = intelligence;
+        mana = maxmana;
+        baseAttack = 8 + strength / 5;
+        minBaseAttack = (int)(baseAttack * 0.8) + equippedWeapon.getDmgmin();
+        maxBaseAttack = (int)(baseAttack * 1.2) + equippedWeapon.getDmgmax();
         attack = (int)(rand.nextFloat() * (maxBaseAttack - minBaseAttack + 1) + minBaseAttack);
+        dodge = dexterity / 10;
+        crit = luck / 10;
     }
 
     public void equipWeapon(){
@@ -213,7 +226,32 @@ public class Player {
         System.out.println("You equipped " + /*Item from inventory +*/ "!");
     }
 
-    public void healPlayer(){
+    public void drinkABeer(){
+        Scanner in = new Scanner(System.in);
+        Player player = getPlayer();
+
+        System.out.println("1 beer costs 10 gold and regenerate 10 HP!");
+        System.out.println("How much beer do you want?");
+
+        int beer = in.nextInt();
+        in.nextLine();
+
+        if (gold >= beer * 10) {
+            setGold(getGold() - beer * 10);
+            setHp(getHp() + beer * 10);
+            if (getHp() > getMaxhp()){
+                setHp(getMaxhp());
+            }
+            System.out.println("You drunk " + beer + " beer, payed " + beer * 10 + " gold and regenerated " + beer * 10 + " HP!");
+            System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + " HP!");
+        } else if (gold < beer * 10){
+            System.out.println("You don't have enough money!");
+        } else {
+            System.out.println("Please enter a valid number!");
+        }
+    }
+
+    public void devHealPlayer(){
         Player player = getPlayer();
         player.setHp(player.getMaxhp());
         System.out.println("You have been healed!");
@@ -353,6 +391,46 @@ public class Player {
 
     public void setGold(int gold) {
         this.gold = gold;
+    }
+
+    public int getMaxstamina() {
+        return maxstamina;
+    }
+
+    public void setMaxstamina(int maxstamina) {
+        this.maxstamina = maxstamina;
+    }
+
+    public int getStamina() {
+        return stamina;
+    }
+
+    public void setStamina(int stamina) {
+        this.stamina = stamina;
+    }
+
+    public int getMaxmana() {
+        return maxmana;
+    }
+
+    public void setMaxmana(int maxmana) {
+        this.maxmana = maxmana;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public boolean isHeal() {
+        return heal;
+    }
+
+    public void setHeal(boolean Heal) {
+        this.heal = heal;
     }
 
     /**================================================Status points=================================================**/

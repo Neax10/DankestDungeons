@@ -7,15 +7,21 @@ import java.util.Random;
 public class CombatSystem {
     private Scanner in = new Scanner(System.in);
     private Random rand = new Random();
+    Color color = new Color();
+    public boolean inCombat;
 
     public void combatSystem(Monster monster) throws InterruptedException {
         Player player = Player.getPlayer();
         Tavern tavern = new Tavern();
-        boolean inCombat = true;
+
+
+        inCombat = true;
+        player.setHeal(false);
         int rndCnt = 1;
         //monster erscheint
+        monster.monsterCheckStats();
         System.out.println("A wild " + monster.getName() + " appeared!");
-        System.out.println("A " + monster.getName() + " wants to fight against you!");
+        System.out.println("A " + monster.getName() + " level " + monster.getLvl() + " wants to fight against you!");
         while (inCombat) {
 
             //auswahl tätigen (kämpfen, item, flüchten)
@@ -23,8 +29,8 @@ public class CombatSystem {
             System.out.println("[1] FIGHT");
             System.out.println("[2] ITEM");
             System.out.println("[3] FLEE");
-            System.out.println("[4] Dev. Heal");
-            System.out.println("[5] Dev. Kill");
+            System.out.println("[4] " + color.getBlue() + "Dev. heal" + color.getDefault());
+            System.out.println("[5] " + color.getBlue() + "Dev. kill" + color.getDefault());
             //TODO: command input befehl
 
             int cmd = in.nextInt();
@@ -32,7 +38,8 @@ public class CombatSystem {
 
             //FIGHT
             if (cmd == 1) {
-                player.calcPlayerDmg();
+                player.calcPlayerStats();
+                monster.monsterCheckStats();
                 System.out.println(player.getMinBaseAttack() + " - " + player.getMaxBaseAttack());
                 //player führt schritt aus
                 monster.setHp(monster.getHp() - player.getAttack());
@@ -48,9 +55,12 @@ public class CombatSystem {
                 if (player.getHp() <= 0) {
                     System.out.println("You died!");
                     inCombat = false;
+                    player.setHeal(true);
+
                 } else if (monster.getHp() <= 0) {
                     System.out.println("You won!");
                     inCombat = false;
+                    player.setHeal(true);
                     player.setGold(player.getGold() + monster.getGold());
                     player.setXp(player.getXp() + monster.getXp());
                     System.out.println("You gained " + monster.getGold() + " Gold");
@@ -77,9 +87,11 @@ public class CombatSystem {
                     if (player.getHp() <= 0) {
                         System.out.println("You died!");
                         inCombat = false;
+                        player.setHeal(true);
                     } else if (monster.getHp() <= 0) {
                         System.out.println("You won!");
                         inCombat = false;
+                        player.setHeal(true);
                         player.setGold(player.getGold() + monster.getGold());
                         player.setXp(player.getXp() + monster.getXp());
                         System.out.println("You gained " + monster.getGold() + " Gold");
@@ -96,11 +108,14 @@ public class CombatSystem {
             } else if (cmd == 3) {
                 System.out.println("You escaped!");
                 inCombat = false;
+                player.setHeal(true);
+                tavern.inTavern();
             } else if (cmd == 4) {
-                player.healPlayer();
+                player.devHealPlayer();
             } else if (cmd == 5) {
                 System.out.println("You won!");
                 inCombat = false;
+                player.setHeal(true);
                 player.setGold(player.getGold() + monster.getGold());
                 player.setXp(player.getXp() + monster.getXp());
                 System.out.println("You gained " + monster.getGold() + " Gold");

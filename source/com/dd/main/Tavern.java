@@ -7,17 +7,20 @@ public class Tavern {
     private Scanner in = new Scanner(System.in);
     private Random rand = new Random();
     private Player player = Player.getPlayer();
+    private Color color = new Color();
 
     public void inTavern(){
         Village village = new Village();
+        Status status = new Status();
 
-        System.out.println("Welcome to the Tavern! What will you do?");
+        System.out.println("Welcome to the tavern! What will you do?");
         System.out.println("[1] Go on an adventure!");
         System.out.println("[2] Start a brawl!");
         System.out.println("[3] Check the status!");
-        System.out.println("[4] Free healing!");
+        System.out.println("[4] Drink a beer!");
         System.out.println("[5] Leave the tavern");
-        System.out.println("[6] Dev. Level up");
+        System.out.println("[6] Free healing!");
+        System.out.println("[7] " + color.getBlue() + "Dev. level up" + color.getDefault());
 
         int inTavern = in.nextInt();
         in.nextLine();
@@ -35,23 +38,19 @@ public class Tavern {
             System.out.println(" ");
             inTavern();
         } else if (inTavern == 3) {
-            System.out.println("Hello " + player.getName() + "!");
-            System.out.println("You are level " + player.getLvl() + " with " + player.getXp() + "/" + player.getNexxp() + " XP!");
-            System.out.println("You deal " + player.getMinBaseAttack() + "-" + player.getMaxBaseAttack() + " damage!"); //TODO: attackdamage with additions of weopons etc.
-            System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP!");
-            if (player.getHp() < player.getMaxhp()) {
-                System.out.println("You can heal your hit points in the tavern!");
-            }
-            System.out.println("You have " + player.getGold() + " Gold!");
-            System.out.println(" ");
-            inTavern();
+            status.setPreLocation(2);
+            status.statusCheck();
         } else if (inTavern == 4) {
-            player.healPlayer();
+            player.drinkABeer();
             System.out.println(" ");
             inTavern();
         } else if (inTavern == 5) {
             village.inVillage();
         } else if (inTavern == 6) {
+            player.devHealPlayer();
+            System.out.println(" ");
+            inTavern();
+        } else if (inTavern == 7) {
 
             System.out.println("You are level " + player.getLvl() + ". How many level ups do you want?");
 

@@ -8,14 +8,18 @@ public class Status {
     private Scanner in = new Scanner(System.in);
     private Random rand = new Random();
 
+    private int preLocation;
     public void statusCheck() {
         Village village = new Village();
+        Tavern tavern = new Tavern();
         Player player = Player.getPlayer();
         Player.EquippedWeapon equippedweapon = player.new EquippedWeapon();
         Status status = new Status();
 
         boolean inStatus = true;
         while (inStatus) {
+            player.setHeal(false);
+            player.calcPlayerStats();
             System.out.println("You are level " + player.getLvl() + " with " + player.getXp() + "/" + player.getNexxp() + " XP!");
             System.out.println("You have equipped " + equippedweapon.getName() + "!");
             System.out.println("You deal " + player.getMinBaseAttack() + "-" + player.getMaxBaseAttack() + " damage!"); //TODO: attackdamage with additions of weopons etc.
@@ -23,121 +27,166 @@ public class Status {
             if (player.getHp() < player.getMaxhp()) {
                 System.out.println("You can heal your hit points in the tavern!");
             }
-            System.out.println("You have " + player.getGold() + " Gold!");
+            System.out.println("You have " + player.getStamina() + "/" + player.getMaxstamina() + " stamina");
+            System.out.println("You have " + player.getMana() + "/" + player.getMaxmana() + " mana");
+            System.out.println("You have " + player.getGold() + " gold!");
             System.out.println("You have " + player.getStatusPoints() + " statuspoints!");
             System.out.println(" ");
-            System.out.println("Do you want to use them?");
-            System.out.println("[1] Yes!");
-            System.out.println("[2] No!");
 
-            int skillen = in.nextInt();
-            in.nextLine();
 
-            boolean inSkilling = true;
-            while (inSkilling) {
-                if (skillen == 1) {
-                    System.out.println("Stats: ");
-                    System.out.println("Strength: " + player.getStrength());
-                    System.out.println("Intelligence: " + player.getIntelligence());
-                    System.out.println("Vitality: " + player.getVitality());
-                    System.out.println("Dexterity: " + player.getDexterity());
-                    System.out.println("Luck: " + player.getLuck());
-                    System.out.println(" ");
-                    System.out.println("What would you like to increase?");
-                    System.out.println("[1] Strength!");
-                    System.out.println("[2] Intelligence!");
-                    System.out.println("[3] Vitality!");
-                    System.out.println("[4] Dexterity!");
-                    System.out.println("[5] Luck");
-                    System.out.println("[6] Nothing!");
+            if (player.getStatusPoints() >= 1) {
+                boolean inSkilling = true;
+                while (inSkilling) {
+                    System.out.println("Do you want to use your skill points?");
+                    System.out.println("[1] Yes!");
+                    System.out.println("[2] No!");
 
-                    int statusPointsSkillen = in.nextInt();
+                    int skillen = in.nextInt();
                     in.nextLine();
-                    if (statusPointsSkillen == 1) {
-                        System.out.println("How many points do you want to skill in Strength?");
 
-                        statusPointsSkillen = in.nextInt();
+                    if (skillen == 1) {
+                        System.out.println("Stats: ");
+                        System.out.println("Strength: " + player.getStrength());
+                        System.out.println("Intelligence: " + player.getIntelligence());
+                        System.out.println("Vitality: " + player.getVitality());
+                        System.out.println("Dexterity: " + player.getDexterity());
+                        System.out.println("Luck: " + player.getLuck());
+                        System.out.println(" ");
+                        System.out.println("What would you like to increase?");
+                        System.out.println("[1] Strength!");
+                        System.out.println("[2] Intelligence!");
+                        System.out.println("[3] Vitality!");
+                        System.out.println("[4] Dexterity!");
+                        System.out.println("[5] Luck");
+                        System.out.println("[6] Nothing!");
+
+                        int statusPointsSkillen = in.nextInt();
                         in.nextLine();
+                        if (statusPointsSkillen == 1) {
+                            System.out.println("How many points do you want to skill in Strength?");
 
-                        if (statusPointsSkillen <= player.getStatusPoints()) {
-                            player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
-                            player.setStrength(player.getStrength() + statusPointsSkillen);
-                            inSkilling = false;
+                            statusPointsSkillen = in.nextInt();
+                            in.nextLine();
+
+                            if (statusPointsSkillen <= player.getStatusPoints()) {
+                                player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
+                                player.setStrength(player.getStrength() + statusPointsSkillen);
+                                inSkilling = false;
+                            } else {
+                                System.out.println("Please enter a valid number!");
+                                System.out.println(" ");
+                            }
+                        } else if (statusPointsSkillen == 2) {
+                            System.out.println("How many points do you want to skill in Intelligence?");
+
+                            statusPointsSkillen = in.nextInt();
+                            in.nextLine();
+                            if (statusPointsSkillen <= player.getStatusPoints()) {
+                                player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
+                                player.setIntelligence(player.getIntelligence() + statusPointsSkillen);
+                                inSkilling = false;
+                            } else {
+                                System.out.println("Please enter a valid number!");
+                                System.out.println(" ");
+                            }
+                        } else if (statusPointsSkillen == 3) {
+                            System.out.println("How many points do you want to skill in Vitality?");
+
+                            statusPointsSkillen = in.nextInt();
+                            in.nextLine();
+
+                            if (statusPointsSkillen <= player.getStatusPoints()) {
+                                player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
+                                player.setVitality(player.getVitality() + statusPointsSkillen);
+                                inSkilling = false;
+                            } else {
+                                System.out.println("Please enter a valid number!");
+                                System.out.println(" ");
+                            }
+                        } else if (statusPointsSkillen == 4) {
+                            System.out.println("How many points do you want to skill in Dexterity?");
+
+                            statusPointsSkillen = in.nextInt();
+                            in.nextLine();
+
+                            if (statusPointsSkillen <= player.getStatusPoints()) {
+                                player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
+                                player.setDexterity(player.getDexterity() + statusPointsSkillen);
+                                inSkilling = false;
+                            } else {
+                                System.out.println("Please enter a valid number!");
+                                System.out.println(" ");
+                            }
+                        } else if (statusPointsSkillen == 5) {
+                            System.out.println("How many points do you want to skill in Luck?");
+
+                            statusPointsSkillen = in.nextInt();
+                            in.nextLine();
+
+                            if (statusPointsSkillen <= player.getStatusPoints()) {
+                                player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
+                                player.setLuck(player.getLuck() + statusPointsSkillen);
+                                inSkilling = false;
+                            } else {
+                                System.out.println("Please enter a valid number!");
+                                System.out.println(" ");
+                            }
+                        } else if (statusPointsSkillen == 6) {
+                            if (getPreLocation() == 1) {
+                                inStatus = false;
+                                player.setHeal(true);
+                                village.inVillage();
+                            } else if (getPreLocation() == 2) {
+                                inStatus = false;
+                                player.setHeal(true);
+                                tavern.inTavern();
+                            } else {
+                                System.out.println("ERROR: Location not found!");
+                            }
                         } else {
                             System.out.println("Please enter a valid number!");
                             System.out.println(" ");
                         }
-                    } else if (statusPointsSkillen == 2) {
-                        System.out.println("How many points do you want to skill in Intelligence?");
-
-                        statusPointsSkillen = in.nextInt();
-                        in.nextLine();
-                        if (statusPointsSkillen <= player.getStatusPoints()) {
-                            player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
-                            player.setIntelligence(player.getIntelligence() + statusPointsSkillen);
-                            inSkilling = false;
+                    } else if (skillen == 2) {
+                        if (getPreLocation() == 1) {
+                            inStatus = false;
+                            player.setHeal(true);
+                            village.inVillage();
+                        } else if (getPreLocation() == 2) {
+                            inStatus = false;
+                            player.setHeal(true);
+                            tavern.inTavern();
                         } else {
-                            System.out.println("Please enter a valid number!");
-                            System.out.println(" ");
+                            System.out.println("ERROR: Location not found!");
                         }
-                    } else if (statusPointsSkillen == 3) {
-                        System.out.println("How many points do you want to skill in Vitality?");
 
-                        statusPointsSkillen = in.nextInt();
-                        in.nextLine();
-
-                        if (statusPointsSkillen <= player.getStatusPoints()) {
-                            player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
-                            player.setVitality(player.getVitality() + statusPointsSkillen);
-                            inSkilling = false;
-                        } else {
-                            System.out.println("Please enter a valid number!");
-                            System.out.println(" ");
-                        }
-                    } else if (statusPointsSkillen == 4) {
-                        System.out.println("How many points do you want to skill in Dexterity?");
-
-                        statusPointsSkillen = in.nextInt();
-                        in.nextLine();
-
-                        if (statusPointsSkillen <= player.getStatusPoints()) {
-                            player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
-                            player.setDexterity(player.getDexterity() + statusPointsSkillen);
-                            inSkilling = false;
-                        } else {
-                            System.out.println("Please enter a valid number!");
-                            System.out.println(" ");
-                        }
-                    } else if (statusPointsSkillen == 5) {
-                        System.out.println("How many points do you want to skill in Luck?");
-
-                        statusPointsSkillen = in.nextInt();
-                        in.nextLine();
-
-                        if (statusPointsSkillen <= player.getStatusPoints()) {
-                            player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
-                            player.setLuck(player.getLuck() + statusPointsSkillen);
-                            inSkilling = false;
-                        } else {
-                            System.out.println("Please enter a valid number!");
-                            System.out.println(" ");
-                        }
-                    } else if (statusPointsSkillen == 6) {
-                        System.out.println("");
                     } else {
                         System.out.println("Please enter a valid number!");
                         System.out.println(" ");
                     }
-                } else if (skillen == 2) {
+                }
+                System.out.println(" ");
+            } else {
+                if (getPreLocation() == 1) {
                     inStatus = false;
+                    player.setHeal(true);
                     village.inVillage();
+                } else if (getPreLocation() == 2) {
+                    inStatus = false;
+                    player.setHeal(true);
+                    tavern.inTavern();
                 } else {
-                    System.out.println("Please enter a valid number!");
-                    System.out.println(" ");
+                    System.out.println("ERROR: Location not found!");
                 }
             }
-            System.out.println(" ");
         }
+    }
+    public int getPreLocation() {
+        return preLocation;
+    }
+
+    public void setPreLocation(int preLocation) {
+        this.preLocation = preLocation;
     }
 }
 

@@ -25,6 +25,7 @@ public class Village {
         } else if (Village == 2) {
                 shop.Shop();
         } else if (Village == 3) {
+            status.setPreLocation(1);
             status.statusCheck();
         } else {
             System.out.println("Please enter a valid number!");
