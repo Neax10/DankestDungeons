@@ -16,7 +16,6 @@ public class CombatSystem {
 
 
         inCombat = true;
-        player.setHeal(false);
         int rndCnt = 1;
         //monster erscheint
         monster.monsterCheckStats();
@@ -55,12 +54,10 @@ public class CombatSystem {
                 if (player.getHp() <= 0) {
                     System.out.println("You died!");
                     inCombat = false;
-                    player.setHeal(true);
 
                 } else if (monster.getHp() <= 0) {
                     System.out.println("You won!");
                     inCombat = false;
-                    player.setHeal(true);
                     player.setGold(player.getGold() + monster.getGold());
                     player.setXp(player.getXp() + monster.getXp());
                     System.out.println("You gained " + monster.getGold() + " Gold");
@@ -87,11 +84,9 @@ public class CombatSystem {
                     if (player.getHp() <= 0) {
                         System.out.println("You died!");
                         inCombat = false;
-                        player.setHeal(true);
                     } else if (monster.getHp() <= 0) {
                         System.out.println("You won!");
                         inCombat = false;
-                        player.setHeal(true);
                         player.setGold(player.getGold() + monster.getGold());
                         player.setXp(player.getXp() + monster.getXp());
                         System.out.println("You gained " + monster.getGold() + " Gold");
@@ -107,15 +102,15 @@ public class CombatSystem {
                 //FLEE
             } else if (cmd == 3) {
                 System.out.println("You escaped!");
+                System.out.println(" ");
                 inCombat = false;
-                player.setHeal(true);
                 tavern.inTavern();
             } else if (cmd == 4) {
                 player.devHealPlayer();
             } else if (cmd == 5) {
                 System.out.println("You won!");
+                System.out.println(" ");
                 inCombat = false;
-                player.setHeal(true);
                 player.setGold(player.getGold() + monster.getGold());
                 player.setXp(player.getXp() + monster.getXp());
                 System.out.println("You gained " + monster.getGold() + " Gold");

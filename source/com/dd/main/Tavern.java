@@ -19,8 +19,8 @@ public class Tavern {
         System.out.println("[3] Check the status!");
         System.out.println("[4] Drink a beer!");
         System.out.println("[5] Leave the tavern");
-        System.out.println("[6] Free healing!");
-        System.out.println("[7] " + color.getBlue() + "Dev. level up" + color.getDefault());
+        System.out.println("[6] " + color.getBlue() + "Dev. healing!" + color.getDefault());
+        System.out.println("[7] " + color.getBlue() + "Dev. level up!" + color.getDefault());
 
         int inTavern = in.nextInt();
         in.nextLine();

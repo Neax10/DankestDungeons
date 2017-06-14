@@ -18,7 +18,6 @@ public class Status {
 
         boolean inStatus = true;
         while (inStatus) {
-            player.setHeal(false);
             player.calcPlayerStats();
             System.out.println("You are level " + player.getLvl() + " with " + player.getXp() + "/" + player.getNexxp() + " XP!");
             System.out.println("You have equipped " + equippedweapon.getName() + "!");
@@ -71,6 +70,7 @@ public class Status {
                             if (statusPointsSkillen <= player.getStatusPoints()) {
                                 player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
                                 player.setStrength(player.getStrength() + statusPointsSkillen);
+                                player.calcPlayerStats();
                                 inSkilling = false;
                             } else {
                                 System.out.println("Please enter a valid number!");
@@ -84,6 +84,7 @@ public class Status {
                             if (statusPointsSkillen <= player.getStatusPoints()) {
                                 player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
                                 player.setIntelligence(player.getIntelligence() + statusPointsSkillen);
+                                player.calcPlayerStats();
                                 inSkilling = false;
                             } else {
                                 System.out.println("Please enter a valid number!");
@@ -98,6 +99,8 @@ public class Status {
                             if (statusPointsSkillen <= player.getStatusPoints()) {
                                 player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
                                 player.setVitality(player.getVitality() + statusPointsSkillen);
+                                player.calcPlayerStats();
+                                player.setHp(player.getHp() + statusPointsSkillen * 2);
                                 inSkilling = false;
                             } else {
                                 System.out.println("Please enter a valid number!");
@@ -112,6 +115,7 @@ public class Status {
                             if (statusPointsSkillen <= player.getStatusPoints()) {
                                 player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
                                 player.setDexterity(player.getDexterity() + statusPointsSkillen);
+                                player.calcPlayerStats();
                                 inSkilling = false;
                             } else {
                                 System.out.println("Please enter a valid number!");
@@ -126,6 +130,7 @@ public class Status {
                             if (statusPointsSkillen <= player.getStatusPoints()) {
                                 player.setStatusPoints(player.getStatusPoints() - statusPointsSkillen);
                                 player.setLuck(player.getLuck() + statusPointsSkillen);
+                                player.calcPlayerStats();
                                 inSkilling = false;
                             } else {
                                 System.out.println("Please enter a valid number!");
@@ -134,11 +139,9 @@ public class Status {
                         } else if (statusPointsSkillen == 6) {
                             if (getPreLocation() == 1) {
                                 inStatus = false;
-                                player.setHeal(true);
                                 village.inVillage();
                             } else if (getPreLocation() == 2) {
                                 inStatus = false;
-                                player.setHeal(true);
                                 tavern.inTavern();
                             } else {
                                 System.out.println("ERROR: Location not found!");
@@ -150,11 +153,9 @@ public class Status {
                     } else if (skillen == 2) {
                         if (getPreLocation() == 1) {
                             inStatus = false;
-                            player.setHeal(true);
                             village.inVillage();
                         } else if (getPreLocation() == 2) {
                             inStatus = false;
-                            player.setHeal(true);
                             tavern.inTavern();
                         } else {
                             System.out.println("ERROR: Location not found!");
@@ -169,11 +170,9 @@ public class Status {
             } else {
                 if (getPreLocation() == 1) {
                     inStatus = false;
-                    player.setHeal(true);
                     village.inVillage();
                 } else if (getPreLocation() == 2) {
                     inStatus = false;
-                    player.setHeal(true);
                     tavern.inTavern();
                 } else {
                     System.out.println("ERROR: Location not found!");
@@ -181,6 +180,7 @@ public class Status {
             }
         }
     }
+
     public int getPreLocation() {
         return preLocation;
     }

@@ -32,8 +32,6 @@ public class Player {
     private int maxmana;
     private int mana;
 
-    private boolean heal;
-
     //Equipment
     //TODO: EquippedWeapon
     public class EquippedWeapon {
@@ -120,11 +118,9 @@ public class Player {
 
     //TODO: Implement weapons and armor
     private void InitPlayer() {
-        /*
         Player.EquippedWeapon equipweapon = new EquippedWeapon();
         DBController dbc = DBController.getInstance();
         Weapon equippedweapon = dbc.getWeaponfromID(1);
-        */
 
         //Points per level = 10
         strength = 10; //1 dmg = 5 Str
@@ -142,13 +138,12 @@ public class Player {
         gold = 0;
         calcPlayerStats();
 
-        /*
         equipweapon.setName(equippedweapon.getName());
         equipweapon.setLevel(equippedweapon.getLevel());
         equipweapon.setDmgmin(equippedweapon.getDmgmin());
         equipweapon.setDmgmax(equippedweapon.getDmgmax());
         equipweapon.setHanded(equippedweapon.getHanded());
-
+        /*
         equipweapon.setBuyprice(equippedweapon.getBuyprice());
         equipweapon.setSellprice(equippedweapon.getSellprice());
         equipweapon.setTradable(equippedweapon.getTradable());
@@ -181,28 +176,24 @@ public class Player {
         nexxp = (int)(prexp * 1.25);
         statusPoints += 10;
         calcPlayerStats();
+        hp = maxhp;
+        stamina = maxstamina;
+        mana = maxmana;
     }
 
     public void calcPlayerStats(){
         Random rand = new Random();
         Player.EquippedWeapon equippedWeapon = new EquippedWeapon();
 
-        if (heal) {
-            hp = 80 + vitality * 2;
-            maxhp = 80 + vitality * 2;
-            System.out.println(heal + "success!");
-        }
+        maxhp = 80 + vitality * 2;
         if (strength >= dexterity){
             maxstamina = dexterity * 2;
-            stamina = maxstamina;
         } else if (strength <= dexterity){
             maxstamina = strength * 2;
-            stamina = maxstamina;
         } else {
             System.out.println("ERROR: stat.calc.fail");
         }
         maxmana = intelligence;
-        mana = maxmana;
         baseAttack = 8 + strength / 5;
         minBaseAttack = (int)(baseAttack * 0.8) + equippedWeapon.getDmgmin();
         maxBaseAttack = (int)(baseAttack * 1.2) + equippedWeapon.getDmgmax();
@@ -423,14 +414,6 @@ public class Player {
 
     public void setMana(int mana) {
         this.mana = mana;
-    }
-
-    public boolean isHeal() {
-        return heal;
-    }
-
-    public void setHeal(boolean Heal) {
-        this.heal = heal;
     }
 
     /**================================================Status points=================================================**/
