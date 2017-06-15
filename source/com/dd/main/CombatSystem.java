@@ -28,8 +28,8 @@ public class CombatSystem {
             System.out.println("[1] FIGHT");
             System.out.println("[2] ITEM");
             System.out.println("[3] FLEE");
-            System.out.println("[4] " + color.getBlue() + "Dev. heal" + color.getDefault());
-            System.out.println("[5] " + color.getBlue() + "Dev. kill" + color.getDefault());
+            System.out.println("[98] " + color.getBlue() + "Dev. heal" + color.getDefault());
+            System.out.println("[99] " + color.getBlue() + "Dev. kill" + color.getDefault());
             //TODO: command input befehl
 
             int cmd = in.nextInt();
@@ -105,9 +105,9 @@ public class CombatSystem {
                 System.out.println(" ");
                 inCombat = false;
                 tavern.inTavern();
-            } else if (cmd == 4) {
+            } else if (cmd == 98) {
                 player.devHealPlayer();
-            } else if (cmd == 5) {
+            } else if (cmd == 99) {
                 System.out.println("You won!");
                 System.out.println(" ");
                 inCombat = false;

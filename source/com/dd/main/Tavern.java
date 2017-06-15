@@ -12,6 +12,7 @@ public class Tavern {
     public void inTavern(){
         Village village = new Village();
         Status status = new Status();
+        Rumors rumors = new Rumors();
 
         System.out.println("Welcome to the tavern! What will you do?");
         System.out.println("[1] Go on an adventure!");
@@ -19,8 +20,10 @@ public class Tavern {
         System.out.println("[3] Check the status!");
         System.out.println("[4] Drink a beer!");
         System.out.println("[5] Leave the tavern");
-        System.out.println("[6] " + color.getBlue() + "Dev. healing!" + color.getDefault());
-        System.out.println("[7] " + color.getBlue() + "Dev. level up!" + color.getDefault());
+        System.out.println("[6] Listen for rumors");
+        System.out.println("[7] Go on your quest"); //todo quest gedingse
+        System.out.println("[98] " + color.getBlue() + "Dev. healing!" + color.getDefault());
+        System.out.println("[99] " + color.getBlue() + "Dev. level up!" + color.getDefault());
 
         int inTavern = in.nextInt();
         in.nextLine();
@@ -47,10 +50,13 @@ public class Tavern {
         } else if (inTavern == 5) {
             village.inVillage();
         } else if (inTavern == 6) {
+            rumors.listenForARumor();
+            inTavern();
+        } else if (inTavern == 98) {
             player.devHealPlayer();
             System.out.println(" ");
             inTavern();
-        } else if (inTavern == 7) {
+        } else if (inTavern == 99) {
 
             System.out.println("You are level " + player.getLvl() + ". How many level ups do you want?");
 

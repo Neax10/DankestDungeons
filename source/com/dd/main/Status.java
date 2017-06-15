@@ -14,11 +14,12 @@ public class Status {
         Tavern tavern = new Tavern();
         Player player = Player.getPlayer();
         Player.EquippedWeapon equippedweapon = player.new EquippedWeapon();
-        Status status = new Status();
 
         boolean inStatus = true;
         while (inStatus) {
             player.calcPlayerStats();
+            int randint = Math.abs(rand.nextInt()) % 11;
+            System.out.println(randint);
             System.out.println("You are level " + player.getLvl() + " with " + player.getXp() + "/" + player.getNexxp() + " XP!");
             System.out.println("You have equipped " + equippedweapon.getName() + "!");
             System.out.println("You deal " + player.getMinBaseAttack() + "-" + player.getMaxBaseAttack() + " damage!"); //TODO: attackdamage with additions of weopons etc.
@@ -26,8 +27,8 @@ public class Status {
             if (player.getHp() < player.getMaxhp()) {
                 System.out.println("You can heal your hit points in the tavern!");
             }
-            System.out.println("You have " + player.getStamina() + "/" + player.getMaxstamina() + " stamina");
-            System.out.println("You have " + player.getMana() + "/" + player.getMaxmana() + " mana");
+            System.out.println("You have " + player.getStamina() + "/" + player.getMaxstamina() + " stamina!");
+            System.out.println("You have " + player.getMana() + "/" + player.getMaxmana() + " mana!");
             System.out.println("You have " + player.getGold() + " gold!");
             System.out.println("You have " + player.getStatusPoints() + " statuspoints!");
             System.out.println(" ");

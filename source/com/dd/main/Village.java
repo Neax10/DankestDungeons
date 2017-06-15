@@ -12,7 +12,7 @@ public class Village {
         Tavern tavern = new Tavern();
         Shop shop = new Shop();
         Status status = new Status();
-        System.out.println("Welcome to the inVillage! What will you do?");
+        System.out.println("Welcome to the village! What will you do?");
         System.out.println("[1] Go to the tavern!");
         System.out.println("[2] Go shopping!");
         System.out.println("[3] Check the status!");
@@ -23,7 +23,7 @@ public class Village {
             tavern.inTavern();
             //SHOPPING
         } else if (Village == 2) {
-                shop.Shop();
+            shop.Shop();
         } else if (Village == 3) {
             status.setPreLocation(1);
             status.statusCheck();

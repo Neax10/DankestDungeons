@@ -32,9 +32,16 @@ public class Player {
     private int maxmana;
     private int mana;
 
+    private int weapon;
+
+    private boolean onquest;
+
     //Equipment
     //TODO: EquippedWeapon
     public class EquippedWeapon {
+        private DBController dbc = DBController.getInstance();
+        private Weapon equippedweapon = dbc.getWeaponfromID(weapon);
+
         private String name;
         private int level;
         private int dmgmin;
@@ -43,6 +50,19 @@ public class Player {
         private int buyprice;
         private int sellprice;
         private int tradable;
+
+        public EquippedWeapon(){
+            name = equippedweapon.getName();
+            level = equippedweapon.getLevel();
+            dmgmin = equippedweapon.getDmgmin();
+            dmgmax = equippedweapon.getDmgmax();
+            handed = equippedweapon.getHanded();
+
+            buyprice = equippedweapon.getBuyprice();
+            sellprice = equippedweapon.getSellprice();
+            tradable = equippedweapon.getTradable();
+        }
+
 
         public String getName() {
             return name;
@@ -111,6 +131,12 @@ public class Player {
 
     //TODO: Armor
 
+    public static Player getPlayer() {
+        if (instance == null) {
+            instance = new Player();
+        }
+        return instance;
+    }
 
     private Player() {
         InitPlayer();
@@ -118,10 +144,8 @@ public class Player {
 
     //TODO: Implement weapons and armor
     private void InitPlayer() {
-        Player.EquippedWeapon equipweapon = new EquippedWeapon();
-        DBController dbc = DBController.getInstance();
-        Weapon equippedweapon = dbc.getWeaponfromID(1);
 
+        weapon = 1;
         //Points per level = 10
         strength = 10; //1 dmg = 5 Str
         intelligence = 10; //1 mag.dmg = 5 Int
@@ -136,18 +160,6 @@ public class Player {
         nexxp = 100;
         prexp = 0;
         gold = 0;
-        calcPlayerStats();
-
-        equipweapon.setName(equippedweapon.getName());
-        equipweapon.setLevel(equippedweapon.getLevel());
-        equipweapon.setDmgmin(equippedweapon.getDmgmin());
-        equipweapon.setDmgmax(equippedweapon.getDmgmax());
-        equipweapon.setHanded(equippedweapon.getHanded());
-        /*
-        equipweapon.setBuyprice(equippedweapon.getBuyprice());
-        equipweapon.setSellprice(equippedweapon.getSellprice());
-        equipweapon.setTradable(equippedweapon.getTradable());
-        */
     }
 
     public void checkPlayerLvl(){
@@ -164,7 +176,7 @@ public class Player {
     }
 
     public void calcPlayerLevel() {
-        Player.EquippedWeapon equippedWeapon = new EquippedWeapon();
+        EquippedWeapon equippedWeapon = new EquippedWeapon();
 
         xp = xp - nexxp;
         lvl = lvl + 1;
@@ -202,6 +214,8 @@ public class Player {
         crit = luck / 10;
     }
 
+
+
     public void equipWeapon(){
         //TODO: Inventory connection
         EquippedWeapon equipweapon = new EquippedWeapon();
@@ -214,7 +228,6 @@ public class Player {
         equipweapon.setBuyprice();
         equipweapon.setSellprice();
         equipweapon.setTradable();*/
-        System.out.println("You equipped " + /*Item from inventory +*/ "!");
     }
 
     public void drinkABeer(){
@@ -247,13 +260,6 @@ public class Player {
         player.setHp(player.getMaxhp());
         System.out.println("You have been healed!");
         System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + " HP!");
-    }
-
-    public static Player getPlayer() {
-        if (instance == null) {
-            instance = new Player();
-        }
-        return instance;
     }
 
     public String getName() {
@@ -414,6 +420,22 @@ public class Player {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(int weapon) {
+        this.weapon = weapon;
+    }
+
+    public boolean isOnquest() {
+        return onquest;
+    }
+
+    public void setOnquest(boolean onquest) {
+        this.onquest = onquest;
     }
 
     /**================================================Status points=================================================**/

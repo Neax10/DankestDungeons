@@ -85,6 +85,7 @@ public class DBController {
         try {
             rs = statement.executeQuery("SELECT * FROM Weapon WHERE ID = " + ID);
             while (rs.next()) {
+                weapon.setId(rs.getInt("id"));
                 weapon.setName(rs.getString("name"));
                 weapon.setLevel(rs.getInt("level"));
                 weapon.setDmgmin(rs.getInt("mindamage"));

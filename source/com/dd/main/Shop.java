@@ -3,10 +3,12 @@ package com.dd.main;
 import java.util.Scanner;
 
 public class Shop {
+
     public void Shop() {
         DBController dbc = DBController.getInstance();
         Scanner in = new Scanner(System.in);
         Player player = Player.getPlayer();
+        Player.EquippedWeapon equipweapon = player.new EquippedWeapon();
         Village village = new Village();
 
         boolean inShop = true;
@@ -43,14 +45,31 @@ public class Shop {
                     Weapon shopweapons = dbc.getWeaponfromID(shopWeapons);
                     //Test item line!!! System.out.println("You want to buy " + shopweapons.getName() + "!");
                     if (shopweapons.getTradable() == 1) {
-                        if (player.getGold() >= shopweapons.getBuyprice()) {
-                            //Add weapon to inventory
-                            player.setGold(player.getGold() - shopweapons.getBuyprice());
-                            System.out.println("You successful bought " + shopweapons.getName() + "!");
+                        if (shopweapons.getLevel() > player.getLvl()){
+                            System.out.println("Your level is to low for this weapon!");
                             System.out.println(" ");
                         } else {
-                            System.out.println("You don't have enough money!");
-                            System.out.println(" ");
+                            if (player.getGold() >= shopweapons.getBuyprice()) {
+                                //Add weapon to inventory
+                                player.setGold(player.getGold() - shopweapons.getBuyprice());
+
+                                player.setWeapon(shopweapons.getId());
+                                equipweapon.setName(shopweapons.getName());
+                                equipweapon.setLevel(shopweapons.getLevel());
+                                equipweapon.setDmgmin(shopweapons.getDmgmin());
+                                equipweapon.setDmgmax(shopweapons.getDmgmax());
+                                equipweapon.setHanded(shopweapons.getHanded());
+                                equipweapon.setBuyprice(shopweapons.getBuyprice());
+                                equipweapon.setSellprice(shopweapons.getSellprice());
+                                equipweapon.setTradable(shopweapons.getTradable());
+
+                                System.out.println("You successful bought and equipped " + shopweapons.getName() + "!");
+                                System.out.println(" ");
+                                player.calcPlayerStats();
+                            } else {
+                                System.out.println("You don't have enough money!");
+                                System.out.println(" ");
+                            }
                         }
                     } else if (shopWeapons == cnt) {
                         System.out.println("You turned away from the weapon trader!");
