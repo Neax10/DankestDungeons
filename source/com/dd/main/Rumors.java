@@ -10,8 +10,8 @@ public class Rumors {
     private Random rand = new Random();
 
     public void listenForARumor (){
-
         LocalDateTime now = LocalDateTime.now();
+        Player player = Player.getPlayer();
         int hour = now.getHour();
         System.out.println(hour);
         float chance = rand.nextFloat();
@@ -33,8 +33,8 @@ public class Rumors {
             int answer = in.nextInt();
             in.nextLine();
             if(answer == 1){
-                boolean onquest = true;
-            } //todo bool onQuest muss in Player.java
+                player.setOnquest(true);
+            }
         }
     }
 

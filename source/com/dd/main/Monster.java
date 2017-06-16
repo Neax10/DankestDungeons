@@ -40,6 +40,8 @@ public class Monster {
         if (lvl < 1){
             lvl = 1;
         }
+        maxhp = maxhp + maxhp / 10 * lvl - 10; //"-10" for get better maxhp if level is +1
+        hp = maxhp;
         baseAttack = baseAttack + lvl - 1;/** "-1" because database wasn't changed (example: fox dmg = 15 and with adding level (min 1) it is an wrong value)*/
         minBaseAttack = (int)(baseAttack * 0.8);
         maxBaseAttack = (int)(baseAttack * 1.2);

@@ -211,7 +211,13 @@ public class Player {
         maxBaseAttack = (int)(baseAttack * 1.2) + equippedWeapon.getDmgmax();
         attack = (int)(rand.nextFloat() * (maxBaseAttack - minBaseAttack + 1) + minBaseAttack);
         dodge = dexterity / 10;
+        if (dodge > 80){
+            dodge = 80;
+        }
         crit = luck / 10;
+        if (luck > 80){
+            luck = 80;
+        }
     }
 
 

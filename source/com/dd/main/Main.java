@@ -35,7 +35,9 @@ public class Main {
     public void initializeGame() {
         DBController dbc = DBController.getInstance();
         dbc.initDBConnection();
+        Title title = new Title();
 
+        title.Title();
         System.out.println("Welcome to DankestDungeons");
         System.out.println("Please type in your Player name:");
         getPlayer().setName(in.nextLine());

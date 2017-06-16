@@ -27,6 +27,8 @@ public class Status {
             if (player.getHp() < player.getMaxhp()) {
                 System.out.println("You can heal your hit points in the tavern!");
             }
+            System.out.println("You have a " + player.getCrit() + "% chance to deal critical damage!");
+            System.out.println("You have a " + player.getDodge() + "% chance to dodge the enemy attack!");
             System.out.println("You have " + player.getStamina() + "/" + player.getMaxstamina() + " stamina!");
             System.out.println("You have " + player.getMana() + "/" + player.getMaxmana() + " mana!");
             System.out.println("You have " + player.getGold() + " gold!");

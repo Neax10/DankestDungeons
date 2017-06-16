@@ -1,12 +1,21 @@
 package com.dd.main;
 
-public class Items {
+public class Item {
+    private int id;
     private String name;
     private String description;
-    private int amout;
+    private int effectamount;
     private int buyprice;
     private int sellprice;
-    private boolean tradable;
+    private int tradable;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -24,12 +33,12 @@ public class Items {
         this.description = description;
     }
 
-    public int getAmout() {
-        return amout;
+    public int getEffectamount() {
+        return effectamount;
     }
 
-    public void setAmout(int amout) {
-        this.amout = amout;
+    public void setEffectamount(int amout) {
+        this.effectamount = amout;
     }
 
     public int getBuyprice() {
@@ -48,11 +57,11 @@ public class Items {
         this.sellprice = sellprice;
     }
 
-    public boolean isTradable() {
+    public int isTradable() {
         return tradable;
     }
 
-    public void setTradable(boolean tradable) {
+    public void setTradable(int tradable) {
         this.tradable = tradable;
     }
 }

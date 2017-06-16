@@ -12,6 +12,7 @@ public class CombatSystem {
 
     public void combatSystem(Monster monster) throws InterruptedException {
         Player player = Player.getPlayer();
+        Item item = new Item();
         Tavern tavern = new Tavern();
 
 
@@ -41,14 +42,31 @@ public class CombatSystem {
                 monster.monsterCheckStats();
                 System.out.println(player.getMinBaseAttack() + " - " + player.getMaxBaseAttack());
                 //player führt schritt aus
-                monster.setHp(monster.getHp() - player.getAttack());
-                System.out.println("You did " + player.getAttack() + " damage");
-                System.out.println("The " + monster.getName() + " has " + monster.getHp() + "/" + monster.getMaxhp() + " HP left.");
+                int critc = (int)(rand.nextFloat() * 100 + 1);
+
+                if (player.getCrit() >= critc){
+                    monster.setHp(monster.getHp() - player.getAttack() * 2);
+                    System.out.println("Critical strike!");
+                    System.out.println("You did " + player.getAttack() * 2 + " damage.");
+                    System.out.println("The " + monster.getName() + " has " + monster.getHp() + "/" + monster.getMaxhp() + " HP left.");
+                } else {
+                    monster.setHp(monster.getHp() - player.getAttack());
+                    System.out.println("You did " + player.getAttack() + " damage.");
+                    System.out.println("The " + monster.getName() + " has " + monster.getHp() + "/" + monster.getMaxhp() + " HP left.");
+                }
+
+                System.out.println(" ");
 
                 //gegner führt schritt aus
-                player.setHp(player.getHp() - monster.getAttack());
-                System.out.println("The " + monster.getName() + " did " + monster.getAttack() + " damage");
-                System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                int dodgec = (int)(rand.nextFloat() * 100 + 1);
+
+                if (player.getDodge() >= dodgec) {
+                    System.out.println("You dodged the attack!");
+                } else {
+                    player.setHp(player.getHp() - monster.getAttack());
+                    System.out.println("The " + monster.getName() + " did " + monster.getAttack() + " damage.");
+                    System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                }
                 TimeUnit.SECONDS.sleep(1);
 
                 if (player.getHp() <= 0) {
@@ -73,6 +91,7 @@ public class CombatSystem {
                 //TODO: ITEMS
                 //ITEM used true/false
                 if (itemuse) {
+
                     System.out.println("You successfully used " + "item" + "!");
                     System.out.println(" ");
                     //gegner führt schritt aus

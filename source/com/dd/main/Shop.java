@@ -16,7 +16,7 @@ public class Shop {
             System.out.println("You have " + player.getGold() + " Gold. What do you want to buy?");
             System.out.println("[1] Weapon");
             System.out.println("[2] Armor");
-            System.out.println("[3] Items");
+            System.out.println("[3] Item");
             System.out.println("[4] Leave Shop");
 
             int Shop = in.nextInt();

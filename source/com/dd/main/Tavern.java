@@ -19,9 +19,9 @@ public class Tavern {
         System.out.println("[2] Start a brawl!");
         System.out.println("[3] Check the status!");
         System.out.println("[4] Drink a beer!");
-        System.out.println("[5] Leave the tavern");
-        System.out.println("[6] Listen for rumors");
-        System.out.println("[7] Go on your quest"); //todo quest gedingse
+        System.out.println("[5] Listen for rumors!");
+        System.out.println("[6] Go on your quest!"); //TODO: Quest stuff
+        System.out.println("[7] Leave the tavern");
         System.out.println("[98] " + color.getBlue() + "Dev. healing!" + color.getDefault());
         System.out.println("[99] " + color.getBlue() + "Dev. level up!" + color.getDefault());
 
@@ -48,10 +48,13 @@ public class Tavern {
             System.out.println(" ");
             inTavern();
         } else if (inTavern == 5) {
-            village.inVillage();
-        } else if (inTavern == 6) {
             rumors.listenForARumor();
             inTavern();
+        } else if (inTavern == 6) {
+            System.out.println("ERROR: No quest system found!");
+            inTavern();
+        } else if (inTavern == 7) {
+            village.inVillage();
         } else if (inTavern == 98) {
             player.devHealPlayer();
             System.out.println(" ");

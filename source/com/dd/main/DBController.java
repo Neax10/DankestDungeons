@@ -102,4 +102,26 @@ public class DBController {
         return weapon;
     }
 
+    public Item getItemfromID(int ID){
+        Item item = new Item();
+
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery("SELECT * FROM Item WHERE ID = " + ID);
+            while (rs.next()) {
+                item.setId(rs.getInt("id"));
+                item.setName(rs.getString("name"));
+                item.setDescription(rs.getString("description"));
+                item.setEffectamount(rs.getInt("effectamount"));
+                item.setBuyprice(rs.getInt("buyprice"));
+                item.setSellprice(rs.getInt("sellprice"));
+                item.setTradable(rs.getInt("tradable"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return item;
+    }
+
 }
