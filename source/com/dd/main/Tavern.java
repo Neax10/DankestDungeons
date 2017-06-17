@@ -13,6 +13,7 @@ public class Tavern {
         Village village = new Village();
         Status status = new Status();
         Rumors rumors = new Rumors();
+        CombatSystem combatSystem = new CombatSystem();
 
         System.out.println("Welcome to the tavern! What will you do?");
         System.out.println("[1] Go on an adventure!");
@@ -33,13 +34,13 @@ public class Tavern {
             Main m = new Main();
             System.out.println("You start an Adventure!");
             System.out.println(" ");
-            m.initDatabase();
+            m.getMonster();
             //BRAWL
         } else if (inTavern == 2) {
-            //TODO: Brawl system
-            System.out.println("There are no opponent's!");
+            Main m = new Main();
+            System.out.println("You start a brawl!");
             System.out.println(" ");
-            inTavern();
+            m.getBruiser();
         } else if (inTavern == 3) {
             status.setPreLocation(2);
             status.statusCheck();

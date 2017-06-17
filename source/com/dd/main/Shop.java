@@ -94,7 +94,6 @@ public class Shop {
             } else {
                 System.out.println("Please enter a valid number!");
             }
-            System.out.println(" ");
         }
     }
 }

@@ -34,6 +34,8 @@ public class Player {
 
     private int weapon;
 
+    private int nextbruiserid;
+
     private boolean onquest;
 
     //Equipment
@@ -144,6 +146,7 @@ public class Player {
 
     //TODO: Implement weapons and armor
     private void InitPlayer() {
+        EquippedWeapon equippedWeapon = new EquippedWeapon();
 
         weapon = 1;
         //Points per level = 10
@@ -155,11 +158,36 @@ public class Player {
 
         hp = 80 + vitality * 2;
         maxhp = 80 + vitality * 2;
+        if (strength >= dexterity){
+            maxstamina = dexterity * 2;
+        } else if (strength <= dexterity){
+            maxstamina = strength * 2;
+        } else {
+            System.out.println("ERROR: stat.calc.fail");
+        }
+        maxmana = intelligence;
+        baseAttack = 8 + strength / 5;
+        minBaseAttack = (int)(baseAttack * 0.8) + equippedWeapon.getDmgmin();
+        maxBaseAttack = (int)(baseAttack * 1.2) + equippedWeapon.getDmgmax();
         lvl = 1;
         xp = 0;
         nexxp = 100;
         prexp = 0;
         gold = 0;
+
+        stamina = maxstamina;
+        mana = maxmana;
+
+        dodge = dexterity / 10;
+        if (dodge > 80){
+            dodge = 80;
+        }
+        crit = luck / 10;
+        if (luck > 80){
+            luck = 80;
+        }
+
+        nextbruiserid = 1;
     }
 
     public void checkPlayerLvl(){
@@ -168,11 +196,10 @@ public class Player {
             player.calcPlayerLevel();
             System.out.println("Congratulations you reached level " + player.getLvl() + "!");
             System.out.println("For the next level up you have " + player.getXp() + "/" + player.getNexxp() + " XP!");
-            System.out.println("You got 10 status points. Now you have " + player.getStatusPoints() + " status points");
+            System.out.println("You got 10 status points and have now " + player.getStatusPoints() + " status points!");
         } else {
             System.out.println("You have now " + player.getXp() + "/" + player.getNexxp() + " XP!");
         }
-        System.out.println(" ");
     }
 
     public void calcPlayerLevel() {
@@ -434,6 +461,14 @@ public class Player {
 
     public void setWeapon(int weapon) {
         this.weapon = weapon;
+    }
+
+    public int getNextbruiserid() {
+        return nextbruiserid;
+    }
+
+    public void setNextbruiserid(int nextbruiserid) {
+        this.nextbruiserid = nextbruiserid;
     }
 
     public boolean isOnquest() {

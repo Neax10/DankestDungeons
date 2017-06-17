@@ -66,9 +66,14 @@ public class DBController {
                 monster.setName(rs.getString("name"));
                 monster.setHp(rs.getInt("health"));
                 monster.setMaxhp(rs.getInt("maxhealth"));
+                monster.setBaseAttack(rs.getInt("damage"));
                 monster.setGold(rs.getInt("gold"));
                 monster.setXp(rs.getInt("xp"));
-                monster.setBaseAttack(rs.getInt("damage"));
+                monster.setStrength(rs.getInt("strength"));
+                monster.setIntelligence(rs.getInt("intelligence"));
+                monster.setVitality(rs.getInt("vitality"));
+                monster.setDexterity(rs.getInt("dexterity"));
+                monster.setLuck(rs.getInt("luck"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,4 +129,33 @@ public class DBController {
         return item;
     }
 
+    public Bruiser getBruiserfromID(int ID){
+        Bruiser bruiser = new Bruiser();
+
+        ResultSet rs = null;
+        try {
+            rs = statement.executeQuery("SELECT * FROM bruiser WHERE ID = " + ID);
+            while (rs.next()) {
+                bruiser.setId(rs.getInt("id"));
+                bruiser.setName(rs.getString("name"));
+                bruiser.setLvl(rs.getInt("level"));
+                bruiser.setHp(rs.getInt("health"));
+                bruiser.setMaxhp(rs.getInt("maxhealth"));
+                bruiser.setBaseAttack(rs.getInt("damage"));
+                bruiser.setGold(rs.getInt("gold"));
+                bruiser.setXp(rs.getInt("xp"));
+                bruiser.setStrength(rs.getInt("strength"));
+                bruiser.setIntelligence(rs.getInt("intelligence"));
+                bruiser.setVitality(rs.getInt("vitality"));
+                bruiser.setDexterity(rs.getInt("dexterity"));
+                bruiser.setLuck(rs.getInt("luck"));
+                bruiser.setDrunken(rs.getInt("drunken"));
+                bruiser.setInjured(rs.getInt("injured"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bruiser;
+    }
 }

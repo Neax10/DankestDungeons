@@ -19,12 +19,33 @@ public class Main {
     public void initDatabase() {
         DBController dbc = DBController.getInstance();
         dbc.initDBConnection();
-        Monster myMonster = dbc.getMonsterfromID(rand.nextInt(6) + 1);
+    }
+
+    public void getMonster(){
+        DBController dbc = DBController.getInstance();
+        Monster myMonster = dbc.getMonsterfromID(rand.nextInt(7) + 1);
         String test = myMonster.getName();
         System.out.println("We have a monster with the Name = " + test);
         System.out.println(" ");
         try {
             combatSystem.combatSystem(myMonster);
+        } catch (InterruptedException e) {
+            //TODO: ERROR HANDLING
+            e.printStackTrace();
+        }
+        //dbc.handleDB();
+    }
+
+    public void getBruiser(){
+        DBController dbc = DBController.getInstance();
+        Player player = getPlayer();
+        int id = player.getNextbruiserid();
+        Bruiser bruiser = dbc.getBruiserfromID(id);
+        String test = bruiser.getName();
+        System.out.println("There is a " + test);
+        System.out.println(" ");
+        try {
+            combatSystem.combatSystem(bruiser);
         } catch (InterruptedException e) {
             //TODO: ERROR HANDLING
             e.printStackTrace();
@@ -44,5 +65,6 @@ public class Main {
         System.out.println("Hello " + getPlayer().getName() + " there are many adventures awaiting you!");
         System.out.println(" ");
         initDatabase();
+        getMonster();
     }
 }

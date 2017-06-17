@@ -2,7 +2,8 @@ package com.dd.main;
 
 import java.util.Random;
 
-public class Monster {
+public class Bruiser {
+    private int id;
     private String name;
     private int maxhp;
     private int hp;
@@ -25,43 +26,55 @@ public class Monster {
     private int stamina;
     private int mana;
 
-    public Monster() {
-        /*Set level for Monster
-        Random rng = new Random();
-        int rnglvl = rng.nextInt();
-        */
+    private int drunken;
+    private int injured;
+
+    public Bruiser(){
+
     }
 
-    public void monsterStats(){
+    public void bruiserStats(){
         Random rand = new Random();
-        Player player = Player.getPlayer();
 
-        lvl = player.getLvl() + (int)(rand.nextFloat() * 4 - 2);
-        if (lvl < 1){
-            lvl = 1;
+        if (drunken == 1 || injured == 1){
+            name = name + " (";
         }
-        strength = strength + lvl * 10;
-        intelligence = intelligence;
-        vitality = vitality + (lvl - 1) * 10;
-        dexterity = dexterity;
-        luck = luck;
+        if (drunken == 1){
+            name =  name + "drunken";
+        }
+        if (drunken == 1 && injured == 1){
+            name = name + " & ";
+        }
+        if (injured == 1){
+            name = name + "injured";
+        }
+        if (drunken == 1 || injured == 1){
+            name = name + ")";
+        }
 
         maxhp = maxhp + vitality * 2;
-        hp = maxhp;
-        baseAttack = baseAttack + strength / 5;
-
-        for (int cnt = 1; cnt < lvl; cnt++) {
-            xp = (int)(xp * 1.2);
-            gold = (int)(gold * 1.2);
+        if (injured == 1) {
+            hp = (int)(maxhp * 0.6);
+        } else {
+            hp = maxhp;
         }
+        baseAttack = baseAttack + strength / 5;
     }
 
-    public void monsterCheckStats(){
+    public void bruiserCheckStats(){
         Random rand = new Random();
 
         minBaseAttack = (int)(baseAttack * 0.8);
         maxBaseAttack = (int)(baseAttack * 1.2);
         attack = (int)(rand.nextFloat() * (maxBaseAttack - minBaseAttack + 1) + minBaseAttack);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -214,5 +227,21 @@ public class Monster {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getDrunken() {
+        return drunken;
+    }
+
+    public void setDrunken(int drunken) {
+        this.drunken = drunken;
+    }
+
+    public int getInjured() {
+        return injured;
+    }
+
+    public void setInjured(int injured) {
+        this.injured = injured;
     }
 }
