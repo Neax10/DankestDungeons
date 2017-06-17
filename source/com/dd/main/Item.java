@@ -57,7 +57,7 @@ public class Item {
         this.sellprice = sellprice;
     }
 
-    public int isTradable() {
+    public int getTradable() {
         return tradable;
     }
 

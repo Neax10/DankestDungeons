@@ -11,10 +11,6 @@ public class Weapon {
     private int sellprice;
     private int tradable;
 
-    /*public static EquippedWeapon getWeapons(){
-
-    }*/
-
     public int getId() {
         return id;
     }

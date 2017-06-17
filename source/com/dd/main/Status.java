@@ -18,8 +18,6 @@ public class Status {
         boolean inStatus = true;
         while (inStatus) {
             player.calcPlayerStats();
-            int randint = Math.abs(rand.nextInt()) % 11;
-            System.out.println(randint);
             System.out.println("You are level " + player.getLvl() + " with " + player.getXp() + "/" + player.getNexxp() + " XP!");
             System.out.println("You have equipped " + equippedweapon.getName() + "!");
             System.out.println("You deal " + player.getMinBaseAttack() + "-" + player.getMaxBaseAttack() + " damage!"); //TODO: attackdamage with additions of weopons etc.
@@ -35,6 +33,29 @@ public class Status {
             System.out.println("You have " + player.getStatusPoints() + " statuspoints!");
             System.out.println(" ");
 
+            System.out.println("Do you want to look at your inventory?");
+            System.out.println("[1] Yes!");
+            System.out.println("[2] No!");
+            int showinv = in.nextInt();
+            in.nextLine();
+
+            if (showinv == 1){
+                Inventory inventory = Inventory.getInventory();
+                inventory.showinventory();
+            } else if (showinv == 2){
+                if (getPreLocation() == 1) {
+                    inStatus = false;
+                    village.inVillage();
+                } else if (getPreLocation() == 2) {
+                    inStatus = false;
+                    tavern.inTavern();
+                } else {
+                    System.out.println("ERROR: Location not found!");
+                }
+            } else {
+                System.out.println("Please enter a valid number!");
+                System.out.println(" ");
+            }
 
             if (player.getStatusPoints() >= 1) {
                 boolean inSkilling = true;

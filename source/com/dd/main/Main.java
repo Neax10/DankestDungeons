@@ -1,6 +1,7 @@
 package com.dd.main;
 
 import java.util.Scanner;
+import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 import java.util.Random;
 
@@ -14,6 +15,23 @@ public class Main {
     public static void main(String[] args) {
         Main m = new Main();
         m.initializeGame();
+    }
+
+    public void initializeGame() {
+        DBController dbc = DBController.getInstance();
+        Inventory inventory = Inventory.getInventory();
+        dbc.initDBConnection();
+        Title title = new Title();
+
+        title.Title();
+        System.out.println("Welcome to DankestDungeons");
+        System.out.println("Please type in your Player name:");
+        getPlayer().setName(in.nextLine());
+        System.out.println("Hello " + getPlayer().getName() + " there are many adventures awaiting you!");
+        System.out.println(" ");
+
+        initDatabase();
+        getMonster();
     }
 
     public void initDatabase() {
@@ -51,20 +69,5 @@ public class Main {
             e.printStackTrace();
         }
         //dbc.handleDB();
-    }
-
-    public void initializeGame() {
-        DBController dbc = DBController.getInstance();
-        dbc.initDBConnection();
-        Title title = new Title();
-
-        title.Title();
-        System.out.println("Welcome to DankestDungeons");
-        System.out.println("Please type in your Player name:");
-        getPlayer().setName(in.nextLine());
-        System.out.println("Hello " + getPlayer().getName() + " there are many adventures awaiting you!");
-        System.out.println(" ");
-        initDatabase();
-        getMonster();
     }
 }

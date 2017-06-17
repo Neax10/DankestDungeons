@@ -23,6 +23,7 @@ public class Tavern {
         System.out.println("[5] Listen for rumors!");
         System.out.println("[6] Go on your quest!"); //TODO: Quest stuff
         System.out.println("[7] Leave the tavern");
+        System.out.println("[97] " + color.getBlue() + "Dev. get gold!" + color.getDefault());
         System.out.println("[98] " + color.getBlue() + "Dev. healing!" + color.getDefault());
         System.out.println("[99] " + color.getBlue() + "Dev. level up!" + color.getDefault());
 
@@ -41,25 +42,37 @@ public class Tavern {
             System.out.println("You start a brawl!");
             System.out.println(" ");
             m.getBruiser();
+            //STATUS
         } else if (inTavern == 3) {
             status.setPreLocation(2);
             status.statusCheck();
+            ///DRINK A BEER
         } else if (inTavern == 4) {
             player.drinkABeer();
             System.out.println(" ");
             inTavern();
+            //LISTEN FOR RUMORS
         } else if (inTavern == 5) {
             rumors.listenForARumor();
             inTavern();
+            //QUEST
         } else if (inTavern == 6) {
             System.out.println("ERROR: No quest system found!");
             inTavern();
+            //LEAVE TAVERN
         } else if (inTavern == 7) {
             village.inVillage();
+            //DEV HEALING
+        } else if (inTavern == 97){
+            System.out.println("How much gold do you want?");
+            int gold = in.nextInt();
+            in.nextLine();
+            player.setGold(player.getGold() + gold);
         } else if (inTavern == 98) {
             player.devHealPlayer();
             System.out.println(" ");
             inTavern();
+            //DEV LEVELING
         } else if (inTavern == 99) {
 
             System.out.println("You are level " + player.getLvl() + ". How many level ups do you want?");
