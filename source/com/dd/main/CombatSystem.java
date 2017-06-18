@@ -141,7 +141,6 @@ public class CombatSystem {
 
                         } else {
                             System.out.println("Please enter a valid number!");
-                            System.out.println(" ");
                         }
                     } else if (inv.getInventorystatus() == 0) {
                         System.out.println("You have no usable items!");
@@ -312,7 +311,6 @@ public class CombatSystem {
 
                         } else {
                             System.out.println("Please enter a valid number!");
-                            System.out.println(" ");
                         }
                     } else if (inv.getInventorystatus() == 0) {
                         System.out.println("You have no usable items!");

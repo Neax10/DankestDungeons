@@ -54,20 +54,12 @@ public class Shop {
                             if (player.getGold() >= shopweapons.getBuyprice()) {
                                 //equip weapon TODO: add to inventory
                                 player.setGold(player.getGold() - shopweapons.getBuyprice());
+                                int amount = 1;
 
-                                player.setWeapon(shopweapons.getId());
-                                equipweapon.setName(shopweapons.getName());
-                                equipweapon.setLevel(shopweapons.getLevel());
-                                equipweapon.setDmgmin(shopweapons.getDmgmin());
-                                equipweapon.setDmgmax(shopweapons.getDmgmax());
-                                equipweapon.setHanded(shopweapons.getHanded());
-                                equipweapon.setBuyprice(shopweapons.getBuyprice());
-                                equipweapon.setSellprice(shopweapons.getSellprice());
-                                equipweapon.setTradable(shopweapons.getTradable());
-
-                                System.out.println("You successful bought and equipped " + shopweapons.getName() + "!");
+                                inventory.fillSlot(inventory.getTypweapon(), shopweapons.getId(), amount);
+                                inventory.setInventorystatus(1);
+                                System.out.println("You successful bought " + shopweapons.getName() + "!");
                                 System.out.println(" ");
-                                player.calcPlayerStats();
                             } else {
                                 System.out.println("You don't have enough money!");
                                 System.out.println(" ");

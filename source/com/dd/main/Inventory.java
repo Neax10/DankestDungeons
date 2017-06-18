@@ -16,9 +16,9 @@ public class Inventory {
     private int slot_9[] = {0, 0, 0};
     private int slot_10[] = {0, 0, 0};
 
-    private int typweapon = 1;
-    private int typarmor = 2;
-    private int typitem = 3;
+    private static int typweapon = 1;
+    private static int typarmor = 2;
+    private static int typitem = 3;
 
     private int selectedslot;
 
@@ -40,59 +40,70 @@ public class Inventory {
         Item item;
         item = dbc.getItemfromID(id);
         clearEmptySlots();
-        if (slot_1[0] == 0 || slot_1[0] == typ && slot_1[1] == id){
+        if (slot_1[0] <= 0 || slot_1[0] == typ && slot_1[1] == id){
             slot_1[0] = typ;
             slot_1[1] = id;
             slot_1[2] += amount;
-            System.out.println("You have now " + slot_1[2] + "x " + item.getName() + "/s!");
+            if (typ == typitem)
+            System.out.println("You have now " + slot_1[2] + "x " + item.getName() + "!");
         } else if (slot_2[0] == 0 || slot_2[0] == typ && slot_2[1] == id){
             slot_2[0] = typ;
             slot_2[1] = id;
             slot_2[2] += amount;
-            System.out.println("You have now " + slot_2[2] + "x " + item.getName() + "/s!");
-        } else if (slot_3[0] == 0 || slot_3[0] == typ && slot_3[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_2[2] + "x " + item.getName() + "!");
+        } else if (slot_3[0] <= 0 || slot_3[0] == typ && slot_3[1] == id){
             slot_3[0] = typ;
             slot_3[1] = id;
             slot_3[2] += amount;
-            System.out.println("You have now " + slot_3[2] + "x " + item.getName() + "/s!");
-        } else if (slot_4[0] == 0 || slot_4[0] == typ && slot_4[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_3[2] + "x " + item.getName() + "!");
+        } else if (slot_4[0] <= 0 || slot_4[0] == typ && slot_4[1] == id){
             slot_4[0] = typ;
             slot_4[1] = id;
             slot_4[2] += amount;
-            System.out.println("You have now " + slot_4[2] + "x " + item.getName() + "/s!");
-        } else if (slot_5[0] == 0 || slot_5[0] == typ && slot_5[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_4[2] + "x " + item.getName() + "!");
+        } else if (slot_5[0] <= 0 || slot_5[0] == typ && slot_5[1] == id){
             slot_5[0] = typ;
             slot_5[1] = id;
             slot_5[1] += amount;
-            System.out.println("You have now " + slot_5[2] + "x " + item.getName() + "/s!");
-        } else if (slot_6[0] == 0 || slot_6[0] == typ && slot_6[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_5[2] + "x " + item.getName() + "!");
+        } else if (slot_6[0] <= 0 || slot_6[0] == typ && slot_6[1] == id){
             slot_6[0] = typ;
             slot_6[1] = id;
             slot_6[2] += amount;
-            System.out.println("You have now " + slot_6[2] + "x " + item.getName() + "/s!");
-        } else if (slot_7[0] == 0 || slot_7[0] == typ && slot_7[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_6[2] + "x " + item.getName() + "!");
+        } else if (slot_7[0] <= 0 || slot_7[0] == typ && slot_7[1] == id){
             slot_7[0] = typ;
             slot_7[1] = id;
             slot_7[2] += amount;
-            System.out.println("You have now " + slot_7[2] + "x " + item.getName() + "/s!");
-        } else if (slot_8[0] == 0 || slot_8[0] == typ && slot_8[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_7[2] + "x " + item.getName() + "!");
+        } else if (slot_8[0] <= 0 || slot_8[0] == typ && slot_8[1] == id){
             slot_8[0] = id;
             slot_8[1] = id;
             slot_8[2] += amount;
-            System.out.println("You have now " + slot_8[2] + "x " + item.getName() + "/s!");
-        } else if (slot_9[0] == 0 || slot_9[0] == typ && slot_9[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_8[2] + "x " + item.getName() + "!");
+        } else if (slot_9[0] <= 0 || slot_9[0] == typ && slot_9[1] == id){
             slot_9[0] = typ;
             slot_9[1] = id;
             slot_9[2] += amount;
-            System.out.println("You have now " + slot_9[2] + "x " + item.getName() + "/s!");
-        } else if (slot_10[0] == 0 || slot_10[0] == typ && slot_10[1] == id){
+            if (typ == typitem)
+            System.out.println("You have now " + slot_9[2] + "x " + item.getName() + "!");
+        } else if (slot_10[0] <= 0 || slot_10[0] == typ && slot_10[1] == id){
             slot_10[0] = id;
             slot_10[1] = id;
             slot_10[2] += amount;
-            System.out.println("You have now " + slot_10[2] + "x " + item.getName() + "/s!");
+            if (typ == typitem)
+            System.out.println("You have now " + slot_10[2] + "x " + item.getName() + "!");
         } else {
             System.out.println("Your inventory is full!");
         }
+        clearEmptySlots();
     }
 
     //remove from slot
@@ -169,10 +180,8 @@ public class Inventory {
                 usesuccsess = 0;
             }
         } else {
-            System.out.println("Please enter a valid number!");
             usesuccsess = 0;
         }
-
         clearEmptySlots();
     }
 
@@ -294,106 +303,228 @@ public class Inventory {
     public void showinventory(int typ, int use){
         Inventory.Healingitems healingitems = new Healingitems();
         DBController dbc = DBController.getInstance();
+        Weapon weapon;
+        //Armor armor; TODO: ARMOR
         Item item;
         clearEmptySlots();
-        if (slot_1[1] >= 1 && getTypitem() == typ) {
+        if (slot_1[1] >= 1 && typ == slot_1[0]){
+            weapon = dbc.getWeaponfromID(slot_1[1]);
             item = dbc.getItemfromID(slot_1[1]);
             if (use == 1) {
-                System.out.println("[" + slot_1[1] + "] " + slot_1[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_1[1] + "] " + slot_1[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_1[1] + "] " + slot_1[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_1[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_1[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_1[2] + "x " + item.getName());
             }
         }
-        if (slot_2[1] >= 1 && getTypitem() == typ) {
+        if (slot_2[1] >= 1 && typ == slot_2[0]){
+            weapon = dbc.getWeaponfromID(slot_2[1]);
             item = dbc.getItemfromID(slot_2[1]);
             if (use == 1) {
-                System.out.println("[" + slot_2[1] + "] " + slot_2[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_2[1] + "] " + slot_2[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_2[1] + "] " + slot_2[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_2[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_2[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_2[2] + "x " + item.getName());
             }
         }
-        if (slot_3[1] >= 1 && getTypitem() == typ) {
+        if (slot_3[1] >= 1 && typ == slot_3[0]){
+            weapon = dbc.getWeaponfromID(slot_3[1]);
             item = dbc.getItemfromID(slot_3[1]);
             if (use == 1) {
-                System.out.println("[" + slot_3[1] + "] " + slot_3[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_3[1] + "] " + slot_3[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_3[1] + "] " + slot_3[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_3[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_3[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_3[2] + "x " + item.getName());
             }
         }
-        if (slot_4[1] >= 1 && getTypitem() == typ) {
+        if (slot_4[1] >= 1 && typ == slot_4[0]){
+            weapon = dbc.getWeaponfromID(slot_4[1]);
             item = dbc.getItemfromID(slot_4[1]);
             if (use == 1) {
-                System.out.println("[" + slot_4[1] + "] " + slot_4[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_4[1] + "] " + slot_4[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_4[1] + "] " + slot_4[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_4[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_4[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_4[2] + "x " + item.getName());
             }
         }
-        if (slot_5[1] >= 1 && getTypitem() == typ) {
+        if (slot_5[1] >= 1 && typ == slot_5[0]){
+            weapon = dbc.getWeaponfromID(slot_5[1]);
             item = dbc.getItemfromID(slot_5[1]);
             if (use == 1) {
-                System.out.println("[" + slot_5[1] + "] " + slot_5[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_5[1] + "] " + slot_5[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_5[1] + "] " + slot_5[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_5[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_5[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_5[2] + "x " + item.getName());
             }
         }
-        if (slot_6[1] >= 1 && getTypitem() == typ) {
+        if (slot_6[1] >= 1 && typ == slot_6[0]){
+            weapon = dbc.getWeaponfromID(slot_6[1]);
             item = dbc.getItemfromID(slot_6[1]);
             if (use == 1) {
-                System.out.println("[" + slot_6[1] + "] " + slot_6[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_6[1] + "] " + slot_6[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_6[1] + "] " + slot_6[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_6[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_6[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_6[2] + "x " + item.getName());
             }
         }
-        if (slot_7[1] >= 1 && getTypitem() == typ) {
+        if (slot_7[1] >= 1 && typ == slot_7[0]){
+            weapon = dbc.getWeaponfromID(slot_7[1]);
             item = dbc.getItemfromID(slot_7[1]);
             if (use == 1) {
-                System.out.println("[" + slot_7[1] + "] " + slot_7[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_7[1] + "] " + slot_7[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_7[1] + "] " + slot_7[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_7[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_7[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_7[2] + "x " + item.getName());
             }
         }
-        if (slot_8[1] >= 1 && getTypitem() == typ) {
+        if (slot_8[1] >= 1 && typ == slot_8[0]){
+            weapon = dbc.getWeaponfromID(slot_8[1]);
             item = dbc.getItemfromID(slot_8[1]);
             if (use == 1) {
-                System.out.println("[" + slot_8[1] + "] " + slot_8[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_8[1] + "] " + slot_8[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_8[1] + "] " + slot_8[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_8[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_8[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_8[2] + "x " + item.getName());
             }
         }
-        if (slot_9[1] >= 1 && getTypitem() == typ) {
+        if (slot_9[1] >= 1 && typ == slot_9[0]){
+            weapon = dbc.getWeaponfromID(slot_9[1]);
             item = dbc.getItemfromID(slot_9[1]);
             if (use == 1) {
-                System.out.println("[" + slot_9[1] + "] " + slot_9[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_9[1] + "] " + slot_9[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_9[1] + "] " + slot_9[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_9[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_9[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_9[2] + "x " + item.getName());
             }
         }
-        if (slot_10[1] >= 1 && getTypitem() == typ) {
+        if (slot_10[1] >= 1 && typ == slot_10[0]){
+            weapon = dbc.getWeaponfromID(slot_10[1]);
             item = dbc.getItemfromID(slot_10[1]);
             if (use == 1) {
-                System.out.println("[" + slot_10[1] + "] " + slot_10[2] + "x " + item.getName() + "/s");
-                if (Objects.equals(item.getDescription(), "Heal HP"))
-                    System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                if (typ == typweapon){
+                    System.out.println("[" + slot_10[1] + "] " + slot_10[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem) {
+                    System.out.println("[" + slot_10[1] + "] " + slot_10[2] + "x " + item.getName());
+                    if (Objects.equals(item.getDescription(), "Heal HP"))
+                        System.out.println("    Heal " + item.getEffectamount() + "HP!");
+                }
             } else {
-                System.out.println(slot_10[2] + "x " + item.getName() + "/s");
+                if (typ == typweapon) {
+                    System.out.println(slot_10[2] + "x " + weapon.getName());
+                } else if (typ == typarmor){
+                    //TODO: ARMOR
+                } else if (typ == typitem)
+                    System.out.println(slot_10[2] + "x " + item.getName());
             }
         }
         if (slot_1[1] == 0 && slot_2[1] == 0 && slot_3[1] == 0 && slot_4[1] == 0 && slot_5[1] == 0 && slot_6[1] == 0 && slot_7[1] == 0 && slot_8[1] == 0 && slot_9[1] == 0 && slot_10[1] == 0 ){

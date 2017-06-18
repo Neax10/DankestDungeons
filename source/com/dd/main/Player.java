@@ -44,6 +44,7 @@ public class Player {
         private DBController dbc = DBController.getInstance();
         private Weapon equippedweapon = dbc.getWeaponfromID(weapon);
 
+        private EquippedWeapon instance;
         private String name;
         private int level;
         private int dmgmin;
@@ -63,6 +64,13 @@ public class Player {
             buyprice = equippedweapon.getBuyprice();
             sellprice = equippedweapon.getSellprice();
             tradable = equippedweapon.getTradable();
+        }
+
+        public EquippedWeapon getEqquippedWeapon() {
+            if (instance == null) {
+                instance = new EquippedWeapon();
+            }
+            return instance;
         }
 
 
