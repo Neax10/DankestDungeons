@@ -39,7 +39,7 @@ public class Shop {
                         }
                     }
                     System.out.println(" ");
-                    System.out.println("[" + cnt + "] Leave weapon trader");
+                    System.out.println("[0] Leave weapon trader");
 
                     int shopWeapons = in.nextInt();
                     in.nextLine();
@@ -73,7 +73,7 @@ public class Shop {
                                 System.out.println(" ");
                             }
                         }
-                    } else if (shopWeapons == cnt) {
+                    } else if (shopWeapons == 0) {
                         System.out.println("You turned away from the weapon trader!");
                         weapontrader = false;
                     } else {
@@ -103,7 +103,7 @@ public class Shop {
                         }
                     }
                     System.out.println(" ");
-                    System.out.println("[" + cnt + "] Leave weapon trader");
+                    System.out.println("[0] Leave item trader");
 
                     int shopItems = in.nextInt();
                     in.nextLine();
@@ -120,15 +120,16 @@ public class Shop {
                             //Add item to inventory
                             player.setGold(player.getGold() - shopitem.getBuyprice() * amount);
 
-                            inventory.fillSlot(inventory.getTypitem(), shopitem.getId(), amount);
-
                             System.out.println("You bought " + amount + " " + shopitem.getName() + "/s!");
+                            System.out.println(" ");
+                            inventory.fillSlot(inventory.getTypitem(), shopitem.getId(), amount);
+                            inventory.setInventorystatus(1);
                             System.out.println(" ");
                         } else {
                             System.out.println("You don't have enough money!");
                             System.out.println(" ");
                         }
-                    } else if (shopItems == cnt) {
+                    } else if (shopItems == 0) {
                         System.out.println("You turned away from the item trader!");
                         itemtrader = false;
                     } else if (player.getGold() <= shopitem.getBuyprice()){

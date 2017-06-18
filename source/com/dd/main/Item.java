@@ -8,6 +8,7 @@ public class Item {
     private int buyprice;
     private int sellprice;
     private int tradable;
+    private int usable;
 
     public int getId() {
         return id;
@@ -63,5 +64,13 @@ public class Item {
 
     public void setTradable(int tradable) {
         this.tradable = tradable;
+    }
+
+    public int getUsable() {
+        return usable;
+    }
+
+    public void setUsable(int usable) {
+        this.usable = usable;
     }
 }

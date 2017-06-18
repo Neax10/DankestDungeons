@@ -121,6 +121,7 @@ public class DBController {
                 item.setBuyprice(rs.getInt("buyprice"));
                 item.setSellprice(rs.getInt("sellprice"));
                 item.setTradable(rs.getInt("tradable"));
+                item.setUsable(rs.getInt("usable"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

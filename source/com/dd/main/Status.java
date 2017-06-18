@@ -41,7 +41,12 @@ public class Status {
 
             if (showinv == 1){
                 Inventory inventory = Inventory.getInventory();
-                inventory.showinventory();
+                System.out.println("Weapons: ");
+                inventory.showinventory(1, 0);
+                System.out.println("Armors: ");
+                inventory.showinventory(2, 0);
+                System.out.println("Items: ");
+                inventory.showinventory(3, 0);
             } else if (showinv == 2){
                 if (getPreLocation() == 1) {
                     inStatus = false;

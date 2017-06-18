@@ -1,5 +1,6 @@
 package com.dd.main;
 
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.Random;
@@ -11,8 +12,10 @@ public class CombatSystem {
     public boolean inCombat;
 
     public void combatSystem(Monster monster) throws InterruptedException {
+        DBController dbc = DBController.getInstance();
+        Inventory inv = Inventory.getInventory();
+        Item item;
         Player player = Player.getPlayer();
-        Item item = new Item();
         Tavern tavern = new Tavern();
 
 
@@ -88,42 +91,66 @@ public class CombatSystem {
 
                 //ITEM
             } else if (cmd == 2) {
-                boolean itemuse = false;
+                boolean itemuse = true;
 
-                //TODO: ITEMS
-                //ITEM used true/false
                 if (itemuse) {
+                    if (inv.getInventorystatus() >= 1) {
+                        System.out.println("Which item do you want to use?");
+                        inv.showinventory(3, 1);
+                        System.out.println("[0] nothing!");
+                        int itm = in.nextInt();
+                        in.nextLine();
 
-                    System.out.println("You successfully used " + "item" + "!");
-                    System.out.println(" ");
-                    //gegner führt schritt aus
-                    int dodgec = (int)(rand.nextFloat() * 100 + 1);
+                        item = dbc.getItemfromID(itm);
+                        inv.removeItem(3, itm, 1);
+                        if (item.getUsable() == 1 && inv.getUsesuccsess() == 1) {
+                            player.setHp(player.getHp() + item.getEffectamount());
+                            if (player.getHp() > player.getMaxhp())
+                                player.setHp(player.getMaxhp());
+                            System.out.println("You successfully used " + item.getName() + "!");
+                            if (Objects.equals(item.getDescription(), "Heal HP"))
+                                System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + "HP!");
+                            System.out.println(" ");
 
-                    if (player.getDodge() >= dodgec) {
-                        System.out.println("You dodged the attack!");
-                        System.out.println(" ");
+                            //gegner führt schritt aus
+                            int dodgec = (int)(rand.nextFloat() * 100 + 1);
+
+                            if (player.getDodge() >= dodgec) {
+                                System.out.println("You dodged the attack!");
+                                System.out.println(" ");
+                            } else {
+                                player.setHp(player.getHp() - monster.getAttack());
+                                System.out.println("The " + monster.getName() + " did " + monster.getAttack() + " damage.");
+                                System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                            }
+                            TimeUnit.SECONDS.sleep(1);
+                            if (player.getHp() <= 0) {
+                                System.out.println("You died!");
+                                inCombat = false;
+                            } else if (monster.getHp() <= 0) {
+                                System.out.println("You won!");
+                                inCombat = false;
+                                player.setGold(player.getGold() + monster.getGold());
+                                player.setXp(player.getXp() + monster.getXp());
+                                System.out.println("You gained " + monster.getGold() + " Gold");
+                                System.out.println("and " + monster.getXp() + " XP!");
+                                player.checkPlayerLvl();
+                            }
+                            rndCnt++;
+                        } else if (itm == 0){
+
+                        } else {
+                            System.out.println("Please enter a valid number!");
+                            System.out.println(" ");
+                        }
+                    } else if (inv.getInventorystatus() == 0) {
+                        System.out.println("You have no usable items!");
                     } else {
-                        player.setHp(player.getHp() - monster.getAttack());
-                        System.out.println("The " + monster.getName() + " did " + monster.getAttack() + " damage.");
-                        System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                        System.out.println("ERROR: inv.stat.unknown!");
                     }
-                    TimeUnit.SECONDS.sleep(1);
-                    if (player.getHp() <= 0) {
-                        System.out.println("You died!");
-                        inCombat = false;
-                    } else if (monster.getHp() <= 0) {
-                        System.out.println("You won!");
-                        inCombat = false;
-                        player.setGold(player.getGold() + monster.getGold());
-                        player.setXp(player.getXp() + monster.getXp());
-                        System.out.println("You gained " + monster.getGold() + " Gold");
-                        System.out.println("and " + monster.getXp() + " XP!");
-                        player.checkPlayerLvl();
-                    }
-                    rndCnt++;
 
                 } else {
-                    System.out.println("You didn't use any item!");
+                    System.out.println("You can't use any item!");
                 }
 
                 //FLEE
@@ -156,8 +183,10 @@ public class CombatSystem {
 /**===================================================================================================================*/
 
     public void combatSystem(Bruiser bruiser) throws InterruptedException {
+        DBController dbc = DBController.getInstance();
+        Inventory inv = Inventory.getInventory();
+        Item item;
         Player player = Player.getPlayer();
-        Item item = new Item();
         Tavern tavern = new Tavern();
 
 
@@ -233,42 +262,66 @@ public class CombatSystem {
 
                 //ITEM
             } else if (cmd == 2) {
-                boolean itemuse = false;
+                boolean itemuse = true;
 
-                //TODO: ITEMS
-                //ITEM used true/false
                 if (itemuse) {
+                    if (inv.getInventorystatus() >= 1) {
+                        System.out.println("Which item do you want to use?");
+                        inv.showinventory(3, 1);
+                        System.out.println("[0] nothing!");
+                        int itm = in.nextInt();
+                        in.nextLine();
 
-                    System.out.println("You successfully used " + "item" + "!");
-                    System.out.println(" ");
-                    //gegner führt schritt aus
-                    int dodgec = (int)(rand.nextFloat() * 100 + 1);
+                        item = dbc.getItemfromID(itm);
+                        inv.removeItem(3, itm, 1);
+                        if (item.getUsable() == 1 && inv.getUsesuccsess() == 1) {
+                            player.setHp(player.getHp() + item.getEffectamount());
+                            if (player.getHp() > player.getMaxhp())
+                                player.setHp(player.getMaxhp());
+                            System.out.println("You successfully used " + item.getName() + "!");
+                            if (Objects.equals(item.getDescription(), "Heal HP"))
+                                System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + "HP!");
+                            System.out.println(" ");
 
-                    if (player.getDodge() >= dodgec) {
-                        System.out.println("You dodged the attack!");
-                        System.out.println(" ");
+                            //gegner führt schritt aus
+                            int dodgec = (int)(rand.nextFloat() * 100 + 1);
+
+                            if (player.getDodge() >= dodgec) {
+                                System.out.println("You dodged the attack!");
+                                System.out.println(" ");
+                            } else {
+                                player.setHp(player.getHp() - bruiser.getAttack());
+                                System.out.println("The " + bruiser.getName() + " did " + bruiser.getAttack() + " damage.");
+                                System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                            }
+                            TimeUnit.SECONDS.sleep(1);
+                            if (player.getHp() <= 0) {
+                                System.out.println("You died!");
+                                inCombat = false;
+                            } else if (bruiser.getHp() <= 0) {
+                                System.out.println("You won!");
+                                inCombat = false;
+                                player.setGold(player.getGold() + bruiser.getGold());
+                                player.setXp(player.getXp() + bruiser.getXp());
+                                System.out.println("You gained " + bruiser.getGold() + " Gold");
+                                System.out.println("and " + bruiser.getXp() + " XP!");
+                                player.checkPlayerLvl();
+                            }
+                            rndCnt++;
+                        } else if (itm == 0){
+
+                        } else {
+                            System.out.println("Please enter a valid number!");
+                            System.out.println(" ");
+                        }
+                    } else if (inv.getInventorystatus() == 0) {
+                        System.out.println("You have no usable items!");
                     } else {
-                        player.setHp(player.getHp() - bruiser.getAttack());
-                        System.out.println("The " + bruiser.getName() + " did " + bruiser.getAttack() + " damage.");
-                        System.out.println("You have " + player.getHp() + "/" + player.getMaxhp() + " HP left.");
+                        System.out.println("ERROR: inv.stat.unknown!");
                     }
-                    TimeUnit.SECONDS.sleep(1);
-                    if (player.getHp() <= 0) {
-                        System.out.println("You died!");
-                        inCombat = false;
-                    } else if (bruiser.getHp() <= 0) {
-                        System.out.println("You won!");
-                        inCombat = false;
-                        player.setGold(player.getGold() + bruiser.getGold());
-                        player.setXp(player.getXp() + bruiser.getXp());
-                        System.out.println("You gained " + bruiser.getGold() + " Gold");
-                        System.out.println("and " + bruiser.getXp() + " XP!");
-                        player.checkPlayerLvl();
-                    }
-                    rndCnt++;
 
                 } else {
-                    System.out.println("You didn't use any item!");
+                    System.out.println("You can't use any item!");
                 }
 
                 //FLEE
