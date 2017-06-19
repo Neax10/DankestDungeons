@@ -23,6 +23,9 @@ public class Main {
         dbc.initDBConnection();
         Title title = new Title();
 
+        System.out.println("");
+        System.out.println("If you enter characters you will crash the complete game so only use numbers between 1 and 9999...");
+        System.out.println("");
         title.Title();
         System.out.println("Welcome to DankestDungeons");
         System.out.println("Please type in your Player name:");

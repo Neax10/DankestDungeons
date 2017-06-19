@@ -35,7 +35,6 @@ public class CombatSystem {
             System.out.println("[3] FLEE");
             System.out.println("[98] " + color.getBlue() + "Dev. heal" + color.getDefault());
             System.out.println("[99] " + color.getBlue() + "Dev. kill" + color.getDefault());
-            //TODO: command input befehl
 
             int cmd = in.nextInt();
             in.nextLine();
@@ -44,7 +43,6 @@ public class CombatSystem {
             if (cmd == 1) {
                 player.calcPlayerStats();
                 monster.monsterCheckStats();
-                System.out.println(player.getMinBaseAttack() + " - " + player.getMaxBaseAttack());
                 //player führt schritt aus
                 int critc = (int)(rand.nextFloat() * 100 + 1);
 
@@ -204,7 +202,6 @@ public class CombatSystem {
             System.out.println("[3] FLEE");
             System.out.println("[98] " + color.getBlue() + "Dev. heal" + color.getDefault());
             System.out.println("[99] " + color.getBlue() + "Dev. kill" + color.getDefault());
-            //TODO: command input befehl
 
             int cmd = in.nextInt();
             in.nextLine();
@@ -213,7 +210,6 @@ public class CombatSystem {
             if (cmd == 1) {
                 player.calcPlayerStats();
                 bruiser.bruiserCheckStats();
-                System.out.println(player.getMinBaseAttack() + " - " + player.getMaxBaseAttack());
                 //player führt schritt aus
                 int critc = (int)(rand.nextFloat() * 100 + 1);
 

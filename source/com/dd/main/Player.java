@@ -275,21 +275,21 @@ public class Player {
         Scanner in = new Scanner(System.in);
         Player player = getPlayer();
 
-        System.out.println("1 beer costs 1 gold and regenerate 10 HP!");
+        System.out.println("1 beer costs 1 gold and regenerate 50 HP!");
         System.out.println("How much beer do you want?");
 
         int beer = in.nextInt();
         in.nextLine();
 
         if (gold >= beer) {
-            setGold(getGold() - beer);
-            setHp(getHp() + beer * 10);
+            gold -= beer;
+            setHp(getHp() + beer * 50);
             if (getHp() > getMaxhp()){
                 setHp(getMaxhp());
             }
-            System.out.println("You drunk " + beer + " beer, payed " + beer + " gold and regenerated " + beer * 10 + " HP!");
+            System.out.println("You drunk " + beer + " beer, payed " + beer + " gold and regenerated " + beer * 50 + " HP!");
             System.out.println("You have now " + player.getHp() + "/" + player.getMaxhp() + " HP!");
-        } else if (gold < beer * 10){
+        } else if (gold < beer){
             System.out.println("You don't have enough money!");
         } else {
             System.out.println("Please enter a valid number!");
